@@ -1,0 +1,25 @@
+@import '../../../variables.scss';
+:host{
+    display: flex;
+    flex-direction: column;
+}
+
+.productImage{
+    margin-right:15px
+}
+
+.productPrice{
+    font-weight: 500;
+    margin-top:  20px;
+    font-size:30px;
+    color:$warn;
+
+}
+
+.productDescription{
+    font-size:18px;
+}
+
+mat-card{
+    margin-bottom:15px
+}
