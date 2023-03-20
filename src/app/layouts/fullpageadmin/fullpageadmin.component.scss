@@ -1,0 +1,19 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.content{
+    padding: 20px;
+}
+
+header{
+    background: #FBA;
+    padding: 20px;
+}
+
+.sidebar{
+    background: #BFA;
+    padding:20px;
+}

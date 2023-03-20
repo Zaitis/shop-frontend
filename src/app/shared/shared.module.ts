@@ -22,7 +22,7 @@ import { FlexModule } from '@angular/flex-layout';
     exports: [
       FooterComponent,
       HeaderComponent,
-      SidebarComponent
+      SidebarComponent,
     ]
 })
 export class SharedModule { }
