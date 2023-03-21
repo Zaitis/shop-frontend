@@ -5,15 +5,22 @@
 }
 
 .content{
-    padding: 20px;
+    background: #f9f9f9;
+    color:#fff;
+    padding: 20px;    
 }
 
 header{
-    background: #FBA;
+    background: #292b31;
     padding: 20px;
+    color:#fff;
+    font-size: 20px;
 }
 
 .sidebar{
-    background: #BFA;
+    background: #999;
     padding:20px;
+    a{
+        color: #fff;
+        }
 }
