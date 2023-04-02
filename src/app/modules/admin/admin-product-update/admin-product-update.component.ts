@@ -13,82 +13,89 @@ import { AdminProductUpdate } from './model/adminProductUpdate';
 })
 export class AdminProductUpdateComponent implements OnInit {
 
-  product! : AdminProductUpdate;
+  product!: AdminProductUpdate;
   productForm!: FormGroup;
   imageForm!: FormGroup;
-  requriedFileTypes ="image/jpeg, image/png";
+  requriedFileTypes = "image/jpeg, image/png";
   image!: string;
 
   constructor(
     private router: ActivatedRoute,
-    private AdminProductUpdateService: AdminProductUpdateService,
+    private adminProductUpdateService: AdminProductUpdateService,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private adminMessageService: AdminMessageService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.getProduct();
     this.productForm = this.formBuilder.group({
-      name: ['',[Validators.required, Validators.minLength(4)]],
-      description: ['',[Validators.required, Validators.minLength(4)]],
-      category: ['',[Validators.required, Validators.minLength(4)]],
+      name: ['', [Validators.required, Validators.minLength(4)]],
+      description: ['', [Validators.required, Validators.minLength(4)]],
+      fullDescription: ['', [Validators.required, Validators.minLength(4)]],
+      category: ['', [Validators.required, Validators.minLength(4)]],
       price: ['', [Validators.required, Validators.min(0)]],
-      currency: ['PLN',Validators.required],
-      image: ['']
+      currency: ['PLN', Validators.required],
+      image: [''],
+      slug: ['', [Validators.required, Validators.minLength(4)]],
     });
 
     this.imageForm = this.formBuilder.group({
       file: ['']
-     })
+    })
   }
 
-  getProduct(){
-    let id =  Number(this.router.snapshot.params['id']);
-    this.AdminProductUpdateService.getProduct(id)
-    .subscribe(product => this.image= product.image)
-    this.AdminProductUpdateService.getProduct(id)
-    .subscribe(product => 
-      this.productForm.setValue({
-      name: product.name,
-      description: product.description,
-      category: product.category,
-      price: product.price,
-      currency: product.currency,
-      image: product.image,
-  }))
- }
-    
-  submit(){
-    let id =  Number(this.router.snapshot.params['id']);
-    this.AdminProductUpdateService.saveProduct(id, this.productForm.value).subscribe({
-     next: product => {
-    this.productForm.setValue({
-    name: product.name,
-    description: product.description,
-    category: product.category,
-    price: product.price,
-    currency: product.currency,
-    image: this.image
-    })
-    this.snackBar.open("Change accepted.","",{duration: 4000});  
-    },
-    error: err => this.adminMessageService.addSpringErrors(err.error)});
-    }
+  getProduct() {
+    let id = Number(this.router.snapshot.params['id']);
+    this.adminProductUpdateService.getProduct(id)
+      .subscribe(product => this.image = product.image)
+    this.adminProductUpdateService.getProduct(id)
+      .subscribe(product =>
+        this.productForm.setValue({
+          name: product.name,
+          description: product.description,
+          fullDescription: product.fullDescription,
+          category: product.category,
+          price: product.price,
+          currency: product.currency,
+          image: product.image,
+          slug: product.slug
+        }))
+  }
 
-    uploadFile(){
-      
-      let formData = new FormData();
-      formData.append('file', this.imageForm.get('file')?.value);
-      this.AdminProductUpdateService.uploadImage(formData)
-        .subscribe(result => this.image= result.filename);
-    }
+  submit() {
+    let id = Number(this.router.snapshot.params['id']);
+    this.adminProductUpdateService.saveProduct(id, this.productForm.value).subscribe({
+      next: product => {
+        this.productForm.setValue({
+          name: product.name,
+          description: product.description,
+          fullDescription: product.fullDescription,
+          category: product.category,
+          price: product.price,
+          currency: product.currency,
+          image: this.image,
+          slug: product.slug
+        })
+        this.snackBar.open("Change accepted.", "", { duration: 4000 });
+      },
+      error: err => this.adminMessageService.addSpringErrors(err.error)
+    });
+  }
 
-    onFileChange(event: any){
-      if(event.target.files.length > 0){
-        this.imageForm.patchValue({
+  uploadFile() {
+
+    let formData = new FormData();
+    formData.append('file', this.imageForm.get('file')?.value);
+    this.adminProductUpdateService.uploadImage(formData)
+      .subscribe(result => this.image = result.filename);
+  }
+
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      this.imageForm.patchValue({
         file: event.target.files[0]
-        });
-      }
+      });
     }
- }
+  }
+}

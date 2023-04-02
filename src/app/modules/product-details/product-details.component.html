@@ -1,0 +1,22 @@
+<div fxLayout="column" *ngIf="product">
+    <div fxLayout="row" fxFlex fxLayoutGap="20">
+        <div>
+            <img *ngIf="!product.image" src="/assets/image-placeholder.png" width="350">
+            <img *ngIf="product.image" src="{{'/api/data/productImage/' + product.image}}" width="350">
+        </div>
+        <div fxLayout="column" fxFlex>
+            <h1>{{product.name}}</h1>
+            <small>{{product.category}}</small>
+            <div class="description">
+                {{product.description}}
+            </div>
+            <div class="fulldescription" *ngIf="product.fullDescription">
+                {{product.fullDescription}}
+            </div>
+            <div fxLayout="row" fxFlexAlign="end">
+            </div>
+            <span class="price">{{product.price}}{{product.currency}}</span>
+            <button mat-flat-button color="warn">add card</button>
+        </div>
+    </div>
+</div>

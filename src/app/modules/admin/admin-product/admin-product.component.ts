@@ -15,15 +15,15 @@ export class AdminProductComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatTable) table!:MatTable<any>;
-  displayedColumns: string[] = ["id", "name", "price", "actions"];
+  displayedColumns: string[] = ["id", "image", "name","category" , "price", "actions"];
   totalElements: number = 0;
   dataSource: AdminProduct[] = [];
    
-
   constructor(
     private adminProductService: AdminProductService,
     private dialogService: AdminConfirmDialogService
-    ) { }  
+  ) {}
+
   ngAfterViewInit(): void {
     this.paginator.page.pipe(
       startWith({}),
@@ -35,7 +35,6 @@ export class AdminProductComponent implements AfterViewInit {
         return data.content;
       })
     ).subscribe(data => this.dataSource = data);
-    
   }
 
   confirmDelete(element: AdminProduct){
@@ -43,14 +42,15 @@ export class AdminProductComponent implements AfterViewInit {
     .afterClosed()
     .subscribe(result => {
       if(result)
-    this.adminProductService.deleteProduct(element.id)
-    .subscribe(() => {
-      this.dataSource.forEach((value,index) => {
-        if(element == value) {
-          this.dataSource.splice(index, 1); 
-          this.table.renderRows();
-        }
-      })
-    })});
+        this.adminProductService.deleteProduct(element.id)
+        .subscribe(() => {
+          this.dataSource.forEach((value,index) => {
+            if(element == value) {
+              this.dataSource.splice(index, 1); 
+              this.table.renderRows();
+            }
+          })
+        })
+    });
   }
 }

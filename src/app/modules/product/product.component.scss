@@ -1,25 +1,34 @@
 @import '../../../variables.scss';
-:host{
+
+:host {
     display: flex;
     flex-direction: column;
 }
 
-.productImage{
-    margin-right:15px
+.productImage {
+    margin-right: 15px
 }
 
-.productPrice{
+.productPrice {
     font-weight: 500;
-    margin-top:  20px;
-    font-size:30px;
-    color:$warn;
-
+    margin-top: 20px;
+    font-size: 30px;
+    color: $warn;
 }
 
-.productDescription{
-    font-size:18px;
+.productDescription {
+    font-size: 18px;
 }
 
-mat-card{
-    margin-bottom:15px
+mat-card {
+    margin-bottom: 15px
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: #777;
 }

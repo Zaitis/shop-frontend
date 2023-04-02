@@ -10,37 +10,34 @@ import { ProductComponent } from './modules/product/product.component';
 import { AdminProductComponent } from 'src/app/modules/admin/admin-product/admin-product.component';
 import { AdminProductUpdateComponent } from './modules/admin/admin-product-update/admin-product-update.component';
 import { AdminProductAddComponent } from './modules/admin/admin-product-add/admin-product-add.component';
+import { ProductDetailsComponent } from './modules/product-details/product-details.component';
 
 const routes: Routes = [
   {
     path:'', component: DefaultComponent, children: [
         {path: '', component: HomeComponent},
-        {path: 'products', component: ProductComponent}
-
+        {path: 'products', component: ProductComponent},
+        {path: 'products/:slug', component: ProductDetailsComponent}
     ]
   },
   {
     path:'', component: FullpageComponent, children: [
         {path: 'login', component: LoginComponent}
-        
-    ]
+         ]
   },
   {
     path:'', component: FullpageadminComponent, children: [
         {path: 'admin', component: AdminComponent},
         {path: 'admin/products', component: AdminProductComponent },
         {path: 'admin/products/update/:id', component: AdminProductUpdateComponent },
-        {path: 'admin/products/add', component: AdminProductAddComponent },
-        
-        
+        {path: 'admin/products/add', component: AdminProductAddComponent },    
     ]
   }
-  
-  
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

@@ -1,7 +1,10 @@
-export interface Product{
+export interface Product {
     name: string,
     category: string,
     description: string,
+    fullDescription: string,
     price: number,
-    currency: string;
+    currency: string,
+    slug: string,
+    image: string
 }
