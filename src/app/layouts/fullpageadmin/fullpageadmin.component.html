@@ -2,18 +2,18 @@
     <div fxFlex fxLayoutAlign="start end" fxLayoutGap="10">
         <mat-icon color="accent" class="logoicon">store</mat-icon>
         <span class="logo">Admin Panel</span>
-        </div>
+    </div>
 </header>
 <div flexLayout="row" fxFlex>
     <div  class="sidebar">
-            <mat-selection-list [multiple]="false">
-                <mat-list-option><a routerLink="/admin">Dashboard</a></mat-list-option>
-                <mat-list-option><a routerLink="/admin/products">Products</a></mat-list-option>
-                <mat-list-option><a routerLink="/admin">Link</a></mat-list-option>
-                </mat-selection-list>
+        <mat-selection-list [multiple]="false">
+            <mat-list-option><a routerLink="/admin">Dashboard</a></mat-list-option>
+            <mat-list-option><a routerLink="/admin/products">Products</a></mat-list-option>
+            <mat-list-option><a routerLink="/admin">Link</a></mat-list-option>
+        </mat-selection-list>
     </div>
    <div class="content" fxFlex>
+         <app-admin-message></app-admin-message>
         <router-outlet></router-outlet>
     </div>
 </div>
-<footer flexLayout="column"></footer>
