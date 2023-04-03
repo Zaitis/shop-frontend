@@ -11,10 +11,11 @@ export class AdminProductAddService {
 
   constructor(private http: HttpClient) { }
 
-  saveNewProduct(product: AdminProductUpdate): Observable<AdminProductUpdate> {
+  createProduct(product: AdminProductUpdate): Observable<AdminProductUpdate> {
 
     return this.http.post<AdminProductUpdate>("/api/admin/products", product)
   }
+  
 
   uploadImage(formData: FormData): Observable<UploadResponse> {
     return this.http.post<UploadResponse>("/api/admin/products/upload", formData);

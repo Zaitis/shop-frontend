@@ -61,18 +61,12 @@ import { FormCategoryService } from "./form-category.service";
 
       <mat-form-field appearance="fill">
         <mat-label>Category</mat-label>
-        <mat-select formControlName="category">
+        <mat-select formControlName="categoryId">
           <mat-option *ngFor="let category of categories" [value]="category.id">
             {{category.name}}
           </mat-option>
         </mat-select>
-        <div *ngIf="category?.invalid && (category?.dirty || category?.touched)" class="erroMessages">
-            <div *ngIf="category?.errors?.['required']">
-              Category is required
-            </div>
-            <div *ngIf="price?.errors?.['min']">
-              Price must be bigger than 0
-            </div>
+        <div>  
         </div>
         
         
@@ -142,8 +136,8 @@ export class AdminProductFormComponent implements OnInit {
     return this.parentForm.get("fullDescription");
   }
 
-  get category() {
-    return this.parentForm.get("category");
+  get categoryId() {
+    return this.parentForm.get("categoryId");
   }
 
   get price() {

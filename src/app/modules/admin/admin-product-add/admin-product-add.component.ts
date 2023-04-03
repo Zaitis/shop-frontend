@@ -28,8 +28,8 @@ export class AdminProductAddComponent implements OnInit {
     this.productForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       description: ['', [Validators.required, Validators.minLength(4)]],
-      fullDescription: ['', [Validators.required, Validators.minLength(4)]],
-      category: ['', [Validators.required, Validators.minLength(4)]],
+      fullDescription: ['',[Validators.required]],
+      categoryId: [''],
       price: ['', [Validators.required, Validators.min(0)]],
       currency: ['PLN', Validators.required],
       slug: ['', [Validators.required, Validators.minLength(4)]],
@@ -40,11 +40,11 @@ export class AdminProductAddComponent implements OnInit {
   }
 
   submit() {
-    this.adminProductService.saveNewProduct(this.productForm.value)
+    this.adminProductService.createProduct(this.productForm.value)
       .subscribe({
         next: product => {
           this.router.navigate(["/admin/products"])
-            .then(() => this.snackBar.open("Product was been add", "", { duration: 4000 }))
+            .then(() => this.snackBar.open("Product was been add", "", { duration: 5000 }))
         },
         error: err => this.adminMessageService.addSpringErrors(err.error)
       })
