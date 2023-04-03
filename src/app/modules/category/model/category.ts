@@ -1,4 +1,4 @@
-import { Product } from "../../product/model/poduct";
+import { Product } from "../../common/model/poduct";
 
 export interface Category{
     name:string,
