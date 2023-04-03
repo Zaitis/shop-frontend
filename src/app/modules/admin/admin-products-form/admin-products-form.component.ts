@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { AdminCategoryNameDto } from "./adminCategoryNameDto";
+import { FormCategoryService } from "./form-category.service";
 
 @Component({
   selector: 'app-admin-product-form',
@@ -59,15 +61,21 @@ import { FormGroup } from "@angular/forms";
 
       <mat-form-field appearance="fill">
         <mat-label>Category</mat-label>
-        <input matInput placeholder="Product Category" formControlName="category">
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let category of categories" [value]="category.id">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
         <div *ngIf="category?.invalid && (category?.dirty || category?.touched)" class="erroMessages">
             <div *ngIf="category?.errors?.['required']">
               Category is required
             </div>
-            <div *ngIf="category?.errors?.['minlength']">
-              Category must have more than 4 digits.
+            <div *ngIf="price?.errors?.['min']">
+              Price must be bigger than 0
             </div>
-      </div>
+        </div>
+        
+        
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -107,9 +115,19 @@ export class AdminProductFormComponent implements OnInit {
 
   @Input()
   parentForm!: FormGroup;
+  categories: Array<AdminCategoryNameDto> =[]; 
+
+  constructor(private formCategoryService: FormCategoryService){}
 
   ngOnInit(): void {
+    this.getCategories();
 
+  }
+
+  getCategories(){
+    this.formCategoryService.getCategories()
+    .subscribe(categories => this.categories= categories)
+  
   }
 
   get name() {
