@@ -20,7 +20,7 @@
   </div>
   <mat-card-actions align="end" fxLayoutGap="10">
     <button mat-flat-button color="primary" routerLink="{{'/products/'+product.slug}}">Show</button>
-    <button mat-flat-button color="accent">add card</button>
+    <button mat-flat-button color="accent" routerLink="/cart" [queryParams]="{productId: product.id}">add card</button>
   </mat-card-actions>
 </mat-card>
 <mat-paginator *ngIf="page && page.totalElements > 0" [length]="page.totalElements" [pageSize]="10"
