@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderSummary } from './model/orderSummary';
 import { OrderDto } from './model/orderDto';
 import { InitData } from './model/initData';
+import { CartIconService } from '../common/service/cart-icon.service';
 
 @Component({
   selector: 'app-order',
@@ -18,6 +19,7 @@ export class OrderComponent implements OnInit {
   formGroup!: FormGroup;
   orderSummary!: OrderSummary;
   initData!: InitData;
+  errorMessage = false;
 
   private statuses = new Map<string, string>([
     ["NEW", "New"],
@@ -25,7 +27,8 @@ export class OrderComponent implements OnInit {
 
   constructor(private cookieService: CookieService,
     private orderService: OrderService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+     private cartIconService: CartIconService) { }
 
   ngOnInit(): void {
     this.checkCartEmpty();
@@ -38,6 +41,7 @@ export class OrderComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       shipment: ['', Validators.required],
+      payment: ['', Validators.required]
 
     });
     this.getInitData();
@@ -51,6 +55,7 @@ export class OrderComponent implements OnInit {
   }
   submit() {
     if (this.formGroup.valid) {
+      this.cartIconService.cartChanged(0);
       this.orderService.placeOrder({
         firstname: this.formGroup.get('firstname')?.value,
         lastname: this.formGroup.get('lastname')?.value,
@@ -60,15 +65,20 @@ export class OrderComponent implements OnInit {
         email: this.formGroup.get('email')?.value,
         phone: this.formGroup.get('phone')?.value,
         cartId: Number(this.cookieService.get('cartId')),
-        shipmentId: Number(this.formGroup.get('shipment')?.value.id)
+        shipmentId: Number(this.formGroup.get('shipment')?.value.id),
+        paymentId: Number(this.formGroup.get('payment')?.value.id)
 
 
 
       } as OrderDto)
-        .subscribe(orderSummary => {
+        .subscribe({
+          next: orderSummary => {
           this.orderSummary = orderSummary;
           this.cookieService.delete("cartId");
-        })
+          this.errorMessage = false;
+        },
+        error: err => this.errorMessage = true
+      })
     }
   }
 
@@ -77,7 +87,14 @@ export class OrderComponent implements OnInit {
       .subscribe(initData => {
         this.initData = initData;
         this.setDefaultShipment();
+        this.setDefaultPayment();
       })
+  }
+  setDefaultPayment() {
+    this.formGroup.patchValue({
+      "payment": this.initData.payments
+        .filter(payment => payment.defaultPayment === true)[0]
+    })
   }
   setDefaultShipment() {
     this.formGroup.patchValue({

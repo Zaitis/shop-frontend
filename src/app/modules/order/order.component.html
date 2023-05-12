@@ -4,6 +4,9 @@
     <div>Order date: {{orderSummary.placeDate |date: 'yyyy-MM-dd HH:mm'}}</div>
     <div>Status: {{getStatus(orderSummary.status)}}</div>
     <div>Value: {{orderSummary.grossValue}}</div>
+    <div *ngIf="orderSummary.payment.note">Payment: <br />
+         <span class="paymentNote" [innerHTML]="orderSummary.payment.note | replace: '\n': '\<br>'"></span>
+        </div>
 </div>
 
 <div *ngIf="!orderSummary && cartSummary && cartSummary.items.length <=0">
@@ -115,8 +118,15 @@
                              [value]="shipmet" [checked]="shipmet.defaultShipment">
                                 <span class="shipment-1">{{shipmet.name}} </span>
                                 <span class="shipment-2">{{shipmet.price}} PLN</span>
+                        </mat-radio-button>
 
-                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div>
+                        <h2>Payments</h2>
+                        <mat-radio-group fxLayout="column" formControlName="payment">
+                            <mat-radio-button class="paymentRadioButton" *ngFor="let payment of initData?.payments"
+                             [value]="payment" [checked]="payment.defaultPayment">{{payment.name}}</mat-radio-button>
 
                         </mat-radio-group>
                     </div>
@@ -124,6 +134,9 @@
                         <div class="orderTotal">Full cost:
                             <span class="orderTotalValue">{{cartSummary?.summary?.grossValue + shipment?.value.price}}</span>
                         </div>
+                    </div>
+                    <div *ngIf="errorMessage" class="errorMessage" fxLayoutAlign="end start">
+                            It something wrong! Try again later.
                     </div>
                     <div fxLayoutAlign="end start">
                         <button mat-flat-button color="accent" class="orderButton">Buy It</button>
