@@ -8,6 +8,15 @@ import { AdminOrder } from './model/adminOrder';
   providedIn: 'root'
 })
 export class AdminOrderService {
+ 
+  getInitData():Observable<any> {
+    return this.http.get<any>("/api/admin/orders/initData");
+    
+  }
+
+  saveStatus(id: number, value: any):Observable<void> {
+    return this.http.patch<void>("/api/admin/orders/" + id, value);
+  }
   
   constructor(private http: HttpClient) { }
   
@@ -17,5 +26,13 @@ export class AdminOrderService {
   
   getOrder(id: number): Observable<AdminOrder> {
     return this.http.get<AdminOrder>("/api/admin/orders/" + id);
+  }
+
+  exportOrders(from: string, to: string, orderSatus: string):Observable<Blob> {
+    return this.http.get(`/api/admin/orders/export?from=${from}&to=${to}&orderStatus=${orderSatus}`, {responseType: 'blob'})
+  }
+
+  getSalesStatistic(): Observable<any> {
+    return this.http.get("/api/admin/orders/stats");
   }
 }
