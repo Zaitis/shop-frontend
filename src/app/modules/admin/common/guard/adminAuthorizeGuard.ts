@@ -13,11 +13,13 @@ export class AdminAuthorizeGuard implements CanActivate {
         private router: Router
         ){}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        if(!this.jwtService.isLoggedIn()){
-            this.router.navigate(["/admin/login"]);
-            return false;
-        }
-        return true;
-    } 
+        canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+            const isLoggedIn = this.jwtService.isLoggedIn();
+            console.log("Guard checked, logged in:", isLoggedIn);
+            if (!isLoggedIn || !this.jwtService.getAdminAccess()){
+                this.router.navigate(["/admin/login"]);
+                return false;
+            }
+            return true;
+          }
 }

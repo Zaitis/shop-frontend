@@ -9,7 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { AdminemptyModule } from './layouts/adminempty/adminempty.module';
-import { JwtInterceptor } from './modules/admin/common/interceptor/jwtinterceptor';
+import { JwtInterceptor } from './modules/common/interceptor/jwtinterceptor';
+import { AdminAuthorizeGuard } from './modules/admin/common/guard/adminAuthorizeGuard';
+
+
 
 
 
@@ -32,7 +35,8 @@ import { JwtInterceptor } from './modules/admin/common/interceptor/jwtintercepto
   ],
   providers: [
     CookieService,
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    AdminAuthorizeGuard 
   ],
   bootstrap: [AppComponent]
 })

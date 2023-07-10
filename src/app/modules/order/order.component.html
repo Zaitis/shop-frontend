@@ -7,7 +7,9 @@
     <div *ngIf="orderSummary.payment.note">Payment: <br />
          <span class="paymentNote" [innerHTML]="orderSummary.payment.note | replace: '\n': '\<br>'"></span>
         </div>
+        <div class="loginInfo" *ngIf="isLoggedIn">Status of your order you can follow on your  <a routerLink="/login">profile.</a></div>
 </div>
+
 
 <div *ngIf="!orderSummary && cartSummary && cartSummary.items.length <=0">
     Shop bucket is empty.
@@ -15,6 +17,7 @@
 
 <div *ngIf="!orderSummary && cartSummary && cartSummary.items.length >0">
     <form [formGroup]="formGroup" (submit)="submit()">
+        <div fxLayout ="row" fxLayoutGap="15px">
         <div fxLayout="column" class="orderForm">
             <mat-form-field appearance="fill">
                 <mat-label>Name</mat-label>
@@ -69,7 +72,7 @@
                         Email is required
                     </div>
                     <div *ngIf="email?.errors?.['email']">
-                        Podaj porawny format email
+                        Your email is not correct.
                     </div>
                 </div>
             </mat-form-field>
@@ -83,6 +86,9 @@
                 </div>
             </mat-form-field>
         </div>
+        <div class="loginInfo" *ngIf="!isLoggedIn"><a routerLink="/login">Sign In</a>, if you want to track the parcel</div>
+        </div>
+        
         <div>
             <div fxLayoutGap="25px grid">
                 <div>
@@ -145,4 +151,5 @@
             </div>
         </div>
     </form>
+    
 </div>
