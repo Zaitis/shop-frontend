@@ -5,7 +5,7 @@
     <div fxLayoutGap="10" fxLayoutAlign="start center">
         <button mat-flat-button color="primary" routerLink="">Main Page</button>
         <button mat-flat-button color="accent" routerLink="/products">Products</button>
-        <button mat-flat-button color="warn" routerLink="/login">Login</button>
+        <button mat-flat-button color="warn" routerLink="/login"><span *ngIf="!isLoggedin">Login</span><span *ngIf="isLoggedin">Profile</span></button>
         <a routerLink="/cart"><mat-icon color="accent" class="shopingBasket"  matBadge="{{cartProductCounter}}" matBadgeColor="warn">shopping_basket</mat-icon></a>
     </div>
 
