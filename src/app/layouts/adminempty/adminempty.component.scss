@@ -1,0 +1,30 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.content{
+    background: #f9f9f9;
+    color:#000;
+    padding: 20px;    
+}
+
+header{
+    background: #292b31;
+    padding: 20px;
+    color:#fff;
+    font-size: 20px;
+}
+
+.sidebar{
+    background: #999;
+    padding:20px;
+    a{
+        color: #fff;
+        }
+}
+
+.subMenuLink{
+    color:gray;
+}
