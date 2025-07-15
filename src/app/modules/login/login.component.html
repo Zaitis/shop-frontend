@@ -1,7 +1,7 @@
-<div fxLayout="row">
-    <div fxFlex>
+<div class="flex-row">
+    <div class="flex-1">
         <h2>Login</h2>
-        <form class= "loginForm" [formGroup]="loginForm" fxLayout="column" (submit)="login()">
+        <form class="loginForm flex-column" [formGroup]="loginForm" (submit)="login()">
             <div *ngIf="loginError" class="error">Email or password is wrong!</div>
             <mat-form-field appearance="fill">
                 <mat-label>Email</mat-label>
@@ -14,9 +14,9 @@
             <button mat-flat-button color="primary">Login</button>
         </form>
     </div>
-    <div fxFlex>
+    <div class="flex-1">
         <h2>Sign Up</h2>
-        <form [formGroup]="registerForm" fxLayout="column" (submit)="register()" class="registerForm">
+        <form [formGroup]="registerForm" class="flex-column registerForm" (submit)="register()">
             <div *ngIf="registerError" class="error">{{registerErrorMessage}}</div>
             <mat-form-field appearance="fill">
                 <mat-label>E-mail</mat-label>
@@ -27,10 +27,10 @@
                 <input type="password" matInput formControlName="password">
             </mat-form-field>
             <mat-form-field appearance="fill">
-                <mat-label>Reapeat Password</mat-label>
+                <mat-label>Repeat Password</mat-label>
                 <input type="password" matInput formControlName="repeatPassword" placeholder="Powtórz hasło">
             </mat-form-field>
             <button mat-flat-button color="primary">Register</button>
-</form>
+        </form>
     </div>
 </div>

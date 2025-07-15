@@ -13,12 +13,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatBadgeModule} from '@angular/material/badge'; 
 import {MatRadioModule} from '@angular/material/radio'; 
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
-
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
-
-
-
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [],
@@ -37,8 +35,10 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/m
     MatBadgeModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatMomentDateModule
-   
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatMenuModule,
+    MatTooltipModule
   ],
   exports: [
     MatIconModule,
@@ -54,10 +54,10 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/m
     MatBadgeModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatMomentDateModule
-  ],
-  providers: [
-    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatMenuModule,
+    MatTooltipModule
   ]
 })
 export class MaterialModule { }

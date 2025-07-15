@@ -6,19 +6,28 @@ import { JwtService } from "src/app/modules/common/service/jwt.service";
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-    constructor(private jwtService: JwtService){}
+    constructor(private jwtService: JwtService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-           let token = this.jwtService.getToken();
-           if(token && (
-            req.url.startsWith("/api/admin") ||
-            req.url.startsWith("/api/order") ||
-            req.url.startsWith("/api/profile"))  ) {
+        const token = this.jwtService.getToken();
+        
+        // Only add token if it exists and is not expired
+        if (token && this.jwtService.isLoggedIn() && this.shouldAddToken(req.url)) {
             req = req.clone({
-                headers: req.headers.set("Authorization", "Bearer " + token)
-            })
-           }
-           return next.handle(req);
+                headers: req.headers.set("Authorization", `Bearer ${token}`)
+            });
+        }
+        
+        return next.handle(req);
     }
 
+    private shouldAddToken(url: string): boolean {
+        const protectedRoutes = [
+            "/api/admin",
+            "/api/order",
+            "/api/profile"
+        ];
+        
+        return protectedRoutes.some(route => url.startsWith(route));
+    }
 }

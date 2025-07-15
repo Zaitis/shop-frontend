@@ -1,6 +1,6 @@
-@import '../../../../variables.scss';
+@use '../../../../variables.scss' as variables;
 :host{
-    background:$lightgray;
+    background:variables.$lightgray;
     padding: 20px;
 }
 

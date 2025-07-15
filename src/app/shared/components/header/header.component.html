@@ -1,12 +1,18 @@
-<header fxLayoutAlign="start center">
-    <div fxFlex fxLayoutAlign="start end" fxLayoutGap="10">
-       <a routerLink=""> <mat-icon color="warn" class="logoIcon">home</mat-icon> <span class="logo">{{title}}</span></a>
+<header class="flex-row-center">
+    <div class="flex-1 flex-row align-end gap-10">
+        <mat-icon color="accent" class="logoicon">store</mat-icon>
+        <span class="logo">Shop</span>
     </div>
-    <div fxLayoutGap="10" fxLayoutAlign="start center">
-        <button mat-flat-button color="primary" routerLink="">Main Page</button>
-        <button mat-flat-button color="accent" routerLink="/products">Products</button>
-        <button mat-flat-button color="warn" routerLink="/login"><span *ngIf="!isLoggedin">Login</span><span *ngIf="isLoggedin">Profile</span></button>
-        <a routerLink="/cart"><mat-icon color="accent" class="shopingBasket"  matBadge="{{cartProductCounter}}" matBadgeColor="warn">shopping_basket</mat-icon></a>
+    <div class="flex-row-center gap-10">
+        <app-language-selector></app-language-selector>
+        <button mat-icon-button color="accent" class="cartButton" [routerLink]="['/cart']">
+            <mat-icon [matBadge]="cartProductCounter" [matBadgeHidden]="cartProductCounter === ''" matBadgeColor="warn">shopping_cart</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" *ngIf="!isLoggedin" [routerLink]="['/login']">
+            <mat-icon>login</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" *ngIf="isLoggedin" [routerLink]="['/profile']">
+            <mat-icon>person</mat-icon>
+        </button>
     </div>
-
 </header>

@@ -1,0 +1,62 @@
+// Custom theme configuration for the shop application
+@use '@angular/material' as mat;
+
+// Include the common styles for Angular Material
+@include mat.core();
+
+// Define modern color palette using Material's built-in palettes
+$primary-palette: mat.define-palette(mat.$blue-palette);
+$accent-palette: mat.define-palette(mat.$pink-palette);
+$warn-palette: mat.define-palette(mat.$red-palette);
+
+// Create theme
+$theme: mat.define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+    warn: $warn-palette,
+  ),
+  typography: mat.define-typography-config(
+    $font-family: 'Inter, "Helvetica Neue", sans-serif',
+  ),
+  density: 0,
+));
+
+// Include theme styles
+@include mat.all-component-themes($theme);
+
+// Custom CSS variables for consistent theming
+:root {
+  --primary-color: #{mat.get-color-from-palette($primary-palette, 500)};
+  --primary-light: #{mat.get-color-from-palette($primary-palette, 100)};
+  --primary-dark: #{mat.get-color-from-palette($primary-palette, 700)};
+  
+  --accent-color: #{mat.get-color-from-palette($accent-palette, 500)};
+  --accent-light: #{mat.get-color-from-palette($accent-palette, 100)};
+  --accent-dark: #{mat.get-color-from-palette($accent-palette, 700)};
+  
+  --warn-color: #{mat.get-color-from-palette($warn-palette, 500)};
+  --warn-light: #{mat.get-color-from-palette($warn-palette, 100)};
+  --warn-dark: #{mat.get-color-from-palette($warn-palette, 700)};
+  
+  --background-color: #fafafa;
+  --surface-color: #ffffff;
+  --text-primary: rgba(0, 0, 0, 0.87);
+  --text-secondary: rgba(0, 0, 0, 0.54);
+  --text-disabled: rgba(0, 0, 0, 0.38);
+  
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-heavy: 0 8px 16px rgba(0, 0, 0, 0.2);
+  
+  --border-radius: 8px;
+  --border-radius-large: 12px;
+  --border-radius-small: 4px;
+  
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+} 

@@ -1,4 +1,4 @@
-@import "../../../variables.scss";
+@use "../../../variables.scss" as variables;
 
 .description,
 .fulldescription {
@@ -11,7 +11,7 @@
     font-weight: 500;
     margin-top: 20px;
     margin-bottom: 20px;
-    color: $warn;
+    color: variables.$warn;
 }
 .review {
     background: white;

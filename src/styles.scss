@@ -1,20 +1,129 @@
-@import 'variables.scss';
-body, html{
-    margin:0;
-    padding: 0;
-    height:100%;
-    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+@use 'variables.scss' as variables;
+@use 'app/shared/styles/flex-utilities.scss' as flex;
+// @use 'app/shared/styles/theme.scss' as theme;
+
+// Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// Global styles
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-.content{
-    padding: 20px;
-    background: $vlighgray;
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  background-color: #fafafa;
+  color: rgba(0, 0, 0, 0.87);
+  line-height: 1.6;
 }
 
-.snack-bar-bg-color-ok{
-    background-color: #009900;
+// Content area styling
+.content {
+  padding: 24px;
+  background: #fafafa;
+  min-height: calc(100vh - 160px); // Adjust based on header/footer height
 }
 
+// Modern card styling
+.mat-card {
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  transition: box-shadow 0.3s ease !important;
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+// Button styling
+.mat-button, .mat-raised-button, .mat-flat-button {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0.5px !important;
+}
+
+// Form field styling
+.mat-form-field {
+  .mat-form-field-flex {
+    border-radius: 8px !important;
+  }
+}
+
+// Snackbar styling
+.snack-bar-bg-color-ok {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.snack-bar-bg-color-error {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+// Table styling
 table {
-    width: 100%;
-    }
+  width: 100%;
+  border-collapse: collapse;
+  
+  th, td {
+    text-align: left;
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  
+  th {
+    font-weight: 600;
+    background-color: #ffffff;
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+// Error message styling
+.error {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+// Loading spinner
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .content {
+    padding: 16px;
+  }
+  
+  .mat-card {
+    margin-bottom: 16px;
+  }
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bbdefb;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2196f3;
+}

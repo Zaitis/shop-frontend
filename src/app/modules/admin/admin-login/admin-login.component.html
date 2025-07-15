@@ -1,4 +1,4 @@
-<form [formGroup]="formGroup" fxLayout="column" (submit)="submit()">
+<form [formGroup]="formGroup" class="flex-column" (submit)="submit()">
     <div *ngIf="loginError" class="error">Login or password is wrong!</div>
     <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>

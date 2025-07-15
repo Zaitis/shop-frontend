@@ -1,4 +1,4 @@
-@import '../../../variables.scss';
+@use '../../../variables.scss' as variables;
 
 :host {
     display: flex;
@@ -13,7 +13,7 @@
     font-weight: 500;
     margin-top: 20px;
     font-size: 30px;
-    color: $warn;
+    color: variables.$warn;
 }
 
 .productDescription {
