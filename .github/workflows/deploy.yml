@@ -96,22 +96,32 @@ jobs:
           exit 1
         fi
         
-        # Check if index.html exists
-        if [ ! -f "dist/index.html" ]; then
-          echo "❌ No index.html found in dist directory!"
+        # Check if shop subdirectory exists (Angular builds to dist/shop)
+        if [ ! -d "dist/shop" ]; then
+          echo "❌ No dist/shop directory found!"
+          echo "📁 Contents of dist directory:"
+          ls -la dist/
+          exit 1
+        fi
+        
+        # Check if index.html exists in the shop subdirectory
+        if [ ! -f "dist/shop/index.html" ]; then
+          echo "❌ No index.html found in dist/shop directory!"
+          echo "📁 Contents of dist/shop directory:"
+          ls -la dist/shop/
           exit 1
         fi
         
         # List build contents
         echo "📁 Build contents:"
-        ls -la dist/
+        ls -la dist/shop/
         
         # Show build size
         echo "📏 Build size:"
-        du -sh dist/
+        du -sh dist/shop/
         
         # Count files
-        echo "📄 File count: $(find dist -type f | wc -l)"
+        echo "📄 File count: $(find dist/shop -type f | wc -l)"
         
         echo "✅ Build verification complete!"
         
@@ -119,7 +129,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: dist-files
-        path: dist/
+        path: dist/shop/
         retention-days: 7
 
   deploy:
