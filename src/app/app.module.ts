@@ -10,6 +10,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { AdminemptyModule } from './layouts/adminempty/adminempty.module';
 import { JwtInterceptor } from './modules/common/interceptor/jwtinterceptor';
+import { BaseUrlInterceptor } from './modules/common/interceptor/base-url.interceptor';
 import { AdminAuthorizeGuard } from './modules/admin/common/guard/adminAuthorizeGuard';
 
 
@@ -35,6 +36,7 @@ import { AdminAuthorizeGuard } from './modules/admin/common/guard/adminAuthorize
   ],
   providers: [
     CookieService,
+    {provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     AdminAuthorizeGuard 
   ],

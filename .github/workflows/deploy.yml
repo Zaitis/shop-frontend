@@ -239,8 +239,8 @@ jobs:
           echo "⚠️ Server health check failed, but this might be normal if domain is not set up"
         fi
         
-        # Check backend API
-        if curl -f -s -o /dev/null ${{ env.BACKEND_URL }}/api/categories; then
+        # Check backend API (without /api prefix)
+        if curl -f -s -o /dev/null ${{ env.BACKEND_URL }}/categories; then
           echo "✅ Backend API is accessible"
         else
           echo "⚠️ Backend API check failed"
@@ -262,6 +262,7 @@ jobs:
           echo "🔧 Backend: ${{ env.BACKEND_URL }}"
           echo "📚 API Docs: ${{ env.BACKEND_URL }}/swagger-ui/index.html"
           echo "👨‍💼 Admin: admin/zaitis123"
+          echo "🔍 Test categories: ${{ env.BACKEND_URL }}/categories"
         else
           echo "❌ Deployment failed!"
           echo "Check the logs above for details"
