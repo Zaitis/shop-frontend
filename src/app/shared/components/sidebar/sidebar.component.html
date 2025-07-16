@@ -4,12 +4,16 @@
   </div>
   
   <div class="sidebar-content">
+    <div class="debug-info">
+      <p>Categories count: {{ categories ? categories.length : 0 }}</p>
+    </div>
+    
     <mat-nav-list *ngIf="categories && categories.length > 0">
       <mat-list-item *ngFor="let category of categories" class="category-item">
         <a [routerLink]="['/categories', category.slug]" 
            routerLinkActive="active"
            class="category-link">
-          <mat-icon matListIcon>category</mat-icon>
+          <mat-icon matListIcon>{{ getCategoryIcon(category.name) }}</mat-icon>
           <span matLine>{{ category.name }}</span>
           <span matLine class="category-description" *ngIf="category.description">
             {{ category.description }}
@@ -21,6 +25,7 @@
     <div class="empty-state" *ngIf="!categories || categories.length === 0">
       <mat-icon class="empty-icon">category</mat-icon>
       <p>No categories available</p>
+      <p class="debug-text">Sidebar is visible but no categories loaded</p>
     </div>
   </div>
 </div>

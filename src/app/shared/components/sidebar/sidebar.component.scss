@@ -1,13 +1,16 @@
 @use '../../../../variables.scss' as variables;
 
 .sidebar {
-  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-  border-right: 1px solid #dee2e6;
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
   height: 100%;
-  min-height: calc(100vh - 64px);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-right: 3px solid #f39c12;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-header {
@@ -15,6 +18,7 @@
   border-bottom: 1px solid #dee2e6;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   position: relative;
+  flex-shrink: 0;
   
   &::after {
     content: '';
@@ -39,6 +43,23 @@
   flex: 1;
   overflow-y: auto;
   padding: 12px 0;
+  max-height: calc(100vh - 100px);
+  background: #f8f9fa;
+}
+
+.debug-info {
+  padding: 8px 16px;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  margin: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #856404;
+  
+  p {
+    margin: 0;
+    font-weight: 500;
+  }
 }
 
 .category-item {
@@ -100,6 +121,10 @@
   padding: 40px 20px;
   text-align: center;
   color: #6c757d;
+  background: white;
+  margin: 12px;
+  border-radius: 8px;
+  border: 2px dashed #dee2e6;
   
   .empty-icon {
     font-size: 48px;
@@ -111,9 +136,15 @@
   }
   
   p {
-    margin: 0;
+    margin: 0 0 8px 0;
     font-size: 14px;
     color: #6c757d;
+  }
+  
+  .debug-text {
+    font-size: 12px;
+    color: #dc3545;
+    font-weight: 500;
   }
 }
 
