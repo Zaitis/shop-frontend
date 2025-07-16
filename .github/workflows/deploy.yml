@@ -25,21 +25,14 @@ jobs:
         
     - name: Install dependencies
       run: |
-        # Clean install to fix rollup dependency issues
-        rm -rf node_modules package-lock.json
-        
-        # Install with specific npm settings
-        npm config set optional true
-        npm install --include=optional
+        # Use npm ci for clean CI install
+        npm ci --include=optional --no-fund --no-audit
         
         # Verify Angular CLI installation
         if [ ! -f "node_modules/.bin/ng" ]; then
-          echo "Angular CLI not found, installing manually..."
+          echo "Angular CLI not found, installing globally..."
           npm install -g @angular/cli@18
         fi
-        
-        # Force install rollup platform-specific dependencies
-        npm install --save-dev @rollup/rollup-linux-x64-gnu || true
         
         # Verify installation
         ls -la node_modules/.bin/ | grep ng || echo "ng not found in node_modules/.bin"
