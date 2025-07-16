@@ -27,18 +27,37 @@ jobs:
       run: |
         # Clean install to fix rollup dependency issues
         rm -rf node_modules package-lock.json
-        npm install
+        
+        # Install with specific npm settings
+        npm config set optional true
+        npm install --include=optional
+        
+        # Verify Angular CLI installation
+        if [ ! -f "node_modules/.bin/ng" ]; then
+          echo "Angular CLI not found, installing manually..."
+          npm install -g @angular/cli@18
+        fi
         
         # Force install rollup platform-specific dependencies
         npm install --save-dev @rollup/rollup-linux-x64-gnu || true
+        
+        # Verify installation
+        ls -la node_modules/.bin/ | grep ng || echo "ng not found in node_modules/.bin"
+        npm list @angular/cli || echo "Angular CLI not found in local dependencies"
       
     - name: Build Angular app for production
       run: |
         # Set Node.js memory options for large builds
         export NODE_OPTIONS="--max-old-space-size=4096"
         
-        # Build the application
-        npm run build:prod
+        # Add local node_modules/.bin to PATH
+        export PATH="$PATH:$(pwd)/node_modules/.bin"
+        
+        # Verify ng is available
+        which ng || echo "ng not found in PATH"
+        
+        # Build the application (try npm script first, then fallback to npx)
+        npm run build:prod || npx ng build --configuration production
       
     - name: Run tests
       run: |
