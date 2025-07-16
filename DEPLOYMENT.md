@@ -31,7 +31,7 @@ Create `/etc/nginx/sites-available/shop-demo`:
 ```nginx
 server {
     listen 80;
-    server_name 91.99.187.62;  # or your domain name
+    server_name shop-demo.zaitis.dev;  # Update with your domain
     
     root /var/www/shop-demo;
     index index.html;
@@ -40,25 +40,24 @@ server {
         try_files $uri $uri/ /index.html;
     }
     
-    # API proxy to backend
+    # Proxy API requests to backend (avoids CORS issues)
     location /api/ {
-        proxy_pass https://shop-backend.zaitis.dev/api/;
+        proxy_pass https://shop-backend.zaitis.dev/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
         
-        # Handle CORS
-        add_header 'Access-Control-Allow-Origin' '*' always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
-        add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization' always;
+        # Proxy headers for proper request handling
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_redirect off;
         
-        if ($request_method = 'OPTIONS') {
-            add_header 'Access-Control-Max-Age' 1728000;
-            add_header 'Content-Type' 'text/plain; charset=utf-8';
-            add_header 'Content-Length' 0;
-            return 204;
-        }
+        # Handle large uploads
+        client_max_body_size 10M;
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
     }
     
     # Enable gzip compression
@@ -203,12 +202,70 @@ The production build includes:
 
 ### Troubleshooting
 
+#### Common Issues
+
 - **Build fails**: Check Node.js version and dependencies
 - **SSH connection fails**: Verify password and server access
 - **File permissions**: Ensure www-data has proper permissions
 - **Nginx/Apache**: Check configuration and restart services
 - **API connection**: Verify backend is accessible
-- **CORS issues**: Check server configuration for proper headers
+
+#### CORS Issues
+
+If you see CORS errors like:
+```
+Access to XMLHttpRequest at 'https://shop-backend.zaitis.dev/login' from origin 'https://shop-demo.zaitis.dev' has been blocked by CORS policy
+```
+
+**Solution 1: Use Proxy Configuration (Recommended)**
+
+Configure your web server to proxy API requests to avoid CORS:
+
+```bash
+# Test if proxy is working
+curl -I https://shop-demo.zaitis.dev/api/categories
+
+# Should return 200 OK, not 404
+```
+
+**Solution 2: Configure Backend CORS**
+
+If you have access to the backend, add CORS configuration:
+
+```java
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("https://shop-demo.zaitis.dev")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
+}
+```
+
+**Solution 3: Server-Level CORS Headers**
+
+Add to your nginx configuration:
+
+```nginx
+location / {
+    add_header 'Access-Control-Allow-Origin' 'https://shop-demo.zaitis.dev' always;
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+    add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization' always;
+    
+    if ($request_method = 'OPTIONS') {
+        add_header 'Access-Control-Max-Age' 1728000;
+        add_header 'Content-Type' 'text/plain; charset=utf-8';
+        add_header 'Content-Length' 0;
+        return 204;
+    }
+    
+    try_files $uri $uri/ /index.html;
+}
+```
 
 ### Security Considerations
 
