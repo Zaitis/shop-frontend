@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { map, startWith, switchMap } from 'rxjs';
 import { AdminOrderService } from './admin-order.service';
 import { AdminOrder } from './model/adminOrder';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-order',
@@ -18,7 +19,10 @@ export class AdminOrderComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  constructor(private adminOrderService: AdminOrderService) { }
+  constructor(
+    private adminOrderService: AdminOrderService,
+    private router: Router
+  ) { }
 
   ngAfterViewInit(): void {
     this.paginator.page.pipe(
@@ -35,5 +39,9 @@ export class AdminOrderComponent implements AfterViewInit {
       })
     ).subscribe(data => this.data = data);
   }
-  
+
+  viewOrderDetails(order: AdminOrder): void {
+    // Navigate to order details/update page
+    this.router.navigate(['/admin/orders/update', order.id]);
+  }
 }

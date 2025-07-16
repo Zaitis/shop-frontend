@@ -5,6 +5,7 @@ import { map, startWith, switchMap } from 'rxjs';
 import { AdminConfirmDialogService } from '../common/service/admin-confirm-dialog.service';
 import { AdminProductService } from './admin-product.service';
 import { AdminProduct } from './model/adminProduct';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin-product',
@@ -21,7 +22,8 @@ export class AdminProductComponent implements AfterViewInit {
    
   constructor(
     private adminProductService: AdminProductService,
-    private dialogService: AdminConfirmDialogService
+    private dialogService: AdminConfirmDialogService,
+    private dialog: MatDialog
   ) {}
 
   ngAfterViewInit(): void {
@@ -52,5 +54,12 @@ export class AdminProductComponent implements AfterViewInit {
           })
         })
     });
+  }
+
+  openImageDialog(imagePath: string): void {
+    // For now, just open image in new tab
+    // In a real app, you could create a dialog component to show the image
+    const imageUrl = `/api/data/productImage/${imagePath}`;
+    window.open(imageUrl, '_blank');
   }
 }

@@ -1,34 +1,102 @@
-<h1>Client opinions</h1>
-<table mat-table [dataSource]="data">
-<ng-container matColumnDef="authorName">
-<th mat-header-cell *matHeaderCellDef> Author </th>
-<td mat-cell *matCellDef="let element">
-{{element.authorName}} </td>
-</ng-container>
-<ng-container matColumnDef="content">
-<th mat-header-cell *matHeaderCellDef> Content </th>
-<td mat-cell *matCellDef="let element"> {{element.content}}
-</td>
-</ng-container>
-<ng-container matColumnDef="moderated">
-<th mat-header-cell *matHeaderCellDef> Accepted </th>
-<td mat-cell *matCellDef="let element">
-{{element.moderated}} </td>
-</ng-container>
-<ng-container matColumnDef="actions">
-<th mat-header-cell *matHeaderCellDef> Actions </th>
-<td mat-cell *matCellDef="let element">
-<button mat-icon-button
-(click)="confirmModerate(element)">
-<mat-icon color="primary">Accepted</mat-icon>
-</button>
-<button mat-icon-button
-(click)="confirmDelete(element)">
-<mat-icon color="warn">Delete</mat-icon>
-</button>
-</td>
-</ng-container>
-<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-<tr mat-row *matRowDef="let row; columns:
-displayedColumns;"></tr>
-</table>
+<div class="admin-reviews">
+  <div class="page-header">
+    <div class="header-content">
+      <div class="title-section">
+        <h1>
+          <mat-icon>rate_review</mat-icon>
+          Review Management
+        </h1>
+        <p class="subtitle">Moderate customer reviews and feedback</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-content">
+    <mat-card class="reviews-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>comment</mat-icon>
+          Customer Reviews
+        </mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="table-container">
+          <table mat-table [dataSource]="data" class="reviews-table">
+            <ng-container matColumnDef="authorName">
+              <th mat-header-cell *matHeaderCellDef class="author-column">
+                <strong>Author</strong>
+              </th>
+              <td mat-cell *matCellDef="let element" class="author-cell">
+                <div class="author-info">
+                  <mat-icon class="author-icon">person</mat-icon>
+                  <span class="author-name">{{ element.authorName }}</span>
+                </div>
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="content">
+              <th mat-header-cell *matHeaderCellDef class="content-column">
+                <strong>Review Content</strong>
+              </th>
+              <td mat-cell *matCellDef="let element" class="content-cell">
+                <div class="review-content">
+                  <p class="review-text">{{ element.content }}</p>
+                  <div class="review-rating" *ngIf="element.rating">
+                    <mat-icon *ngFor="let star of getStarArray(element.rating)" class="star">star</mat-icon>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="moderated">
+              <th mat-header-cell *matHeaderCellDef class="status-column">
+                <strong>Status</strong>
+              </th>
+              <td mat-cell *matCellDef="let element" class="status-cell">
+                <span class="status-badge" [class.approved]="element.moderated" [class.pending]="!element.moderated">
+                  <mat-icon>{{ element.moderated ? 'check_circle' : 'pending' }}</mat-icon>
+                  {{ element.moderated ? 'Approved' : 'Pending' }}
+                </span>
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class="actions-column">
+                <strong>Actions</strong>
+              </th>
+              <td mat-cell *matCellDef="let element" class="actions-cell">
+                <div class="action-buttons">
+                  <button 
+                    mat-icon-button 
+                    color="primary" 
+                    (click)="confirmModerate(element)"
+                    matTooltip="Approve Review"
+                    *ngIf="!element.moderated">
+                    <mat-icon>check_circle</mat-icon>
+                  </button>
+                  <button 
+                    mat-icon-button 
+                    color="warn" 
+                    (click)="confirmDelete(element)"
+                    matTooltip="Delete Review">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="review-row"></tr>
+          </table>
+        </div>
+
+        <div class="empty-state" *ngIf="data.length === 0">
+          <mat-icon>rate_review</mat-icon>
+          <h3>No Reviews Found</h3>
+          <p>Customer reviews will appear here once they start rating products</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

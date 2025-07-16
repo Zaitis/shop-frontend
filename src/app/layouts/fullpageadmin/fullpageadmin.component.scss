@@ -1,30 +1,204 @@
-:host{
+.admin-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.admin-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  
+  .header-content {
     display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.content{
-    background: #f9f9f9;
-    color:#000;
-    padding: 20px;    
-}
-
-header{
-    background: #292b31;
-    padding: 20px;
-    color:#fff;
-    font-size: 20px;
-}
-
-.sidebar{
-    background: #999;
-    padding:20px;
-    a{
-        color: #fff;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 64px;
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      
+      .logo-icon {
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+        color: white;
+      }
+      
+      .logo-text {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: white;
+      }
+    }
+    
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      
+      .profile-btn, .logout-btn {
+        color: white;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+        
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
         }
+        
+        mat-icon {
+          font-size: 24px;
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
 }
 
-.subMenuLink{
-    color:gray;
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 280px;
+  background: white;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  
+  .sidebar-content {
+    padding: 16px 0;
+    
+    mat-nav-list {
+      padding: 0;
+      
+      mat-list-item {
+        margin: 4px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        
+        &:hover {
+          background-color: #f5f5f5;
+        }
+        
+        &.active {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          
+          mat-icon {
+            color: white;
+          }
+        }
+        
+        mat-icon {
+          color: #666;
+          margin-right: 16px;
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+        
+        span {
+          font-weight: 500;
+          font-size: 14px;
+        }
+      }
+    }
+    
+    .submenu-container {
+      margin-left: 16px;
+      border-left: 2px solid #e0e0e0;
+      
+      .submenu-item {
+        margin: 4px 16px 4px 0;
+        padding-left: 24px;
+        font-size: 13px;
+        
+        &.sub-active {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          
+          mat-icon {
+            color: white;
+          }
+        }
+        
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+}
+
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+  
+  app-admin-message {
+    display: block;
+    padding: 16px 24px 0;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+  }
+  
+  .admin-header .header-content {
+    padding: 0 16px;
+    
+    .logo-text {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    position: fixed;
+    top: 64px;
+    left: -280px;
+    height: calc(100vh - 64px);
+    z-index: 999;
+    transition: left 0.3s ease;
+    
+    &.open {
+      left: 0;
+    }
+  }
+  
+  .content-area {
+    width: 100%;
+  }
+  
+  .admin-header .header-content {
+    .logo-section {
+      gap: 8px;
+      
+      .logo-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+      
+      .logo-text {
+        font-size: 1.2rem;
+      }
+    }
+  }
 }

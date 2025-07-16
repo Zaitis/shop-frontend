@@ -1,26 +1,68 @@
-<header fxLayout="colum" fxLayoutAlign="start center">
-    <div fxFlex fxLayoutAlign="start end" fxLayoutGap="10">
-        <mat-icon color="accent" class="logoicon">store</mat-icon>
-        <span class="logo">Admin Panel</span>
+<div class="admin-layout">
+  <header class="admin-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <mat-icon class="logo-icon">store</mat-icon>
+        <span class="logo-text">Shop Admin</span>
+      </div>
+      <div class="header-actions">
+        <button mat-icon-button class="profile-btn">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <button mat-icon-button class="logout-btn" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
     </div>
-</header>
-<div flexLayout="row" fxFlex>
-    <div  class="sidebar">
-        <mat-selection-list [multiple]="false">
-            <mat-list-option><a routerLink="/admin">Dashboard</a></mat-list-option>
-            <mat-list-option>
-                <a routerLink="/admin/orders">Orders</a>
-                <span class="subMenuLink"> | <a routerLink="/admin/orders/export">Export</a></span>
-                <span class="subMenuLink"> | <a routerLink="/admin/orders/stats">Statistic</a></span>
-            </mat-list-option>
-            <mat-list-option><a routerLink="/admin/products">Products</a></mat-list-option>
-            <mat-list-option><a routerLink="/admin/categories">Categories</a></mat-list-option>
-            <mat-list-option><a
-                routerLink="/admin/reviews">Reviews</a></mat-list-option>
-        </mat-selection-list>
-    </div>
-   <div class="content" fxFlex>
-         <app-admin-message></app-admin-message>
-        <router-outlet></router-outlet>
-    </div>
+  </header>
+
+  <div class="main-content">
+    <nav class="sidebar">
+      <div class="sidebar-content">
+        <mat-nav-list>
+          <mat-list-item routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <mat-icon matListIcon>dashboard</mat-icon>
+            <span matLine>Dashboard</span>
+          </mat-list-item>
+          
+          <mat-list-item routerLink="/admin/orders" routerLinkActive="active">
+            <mat-icon matListIcon>shopping_cart</mat-icon>
+            <span matLine>Orders</span>
+          </mat-list-item>
+          
+          <div class="submenu-container">
+            <mat-list-item routerLink="/admin/orders/export" routerLinkActive="sub-active" class="submenu-item">
+              <mat-icon matListIcon>file_download</mat-icon>
+              <span matLine>Export Orders</span>
+            </mat-list-item>
+            
+            <mat-list-item routerLink="/admin/orders/stats" routerLinkActive="sub-active" class="submenu-item">
+              <mat-icon matListIcon>analytics</mat-icon>
+              <span matLine>Statistics</span>
+            </mat-list-item>
+          </div>
+          
+          <mat-list-item routerLink="/admin/products" routerLinkActive="active">
+            <mat-icon matListIcon>inventory</mat-icon>
+            <span matLine>Products</span>
+          </mat-list-item>
+          
+          <mat-list-item routerLink="/admin/categories" routerLinkActive="active">
+            <mat-icon matListIcon>category</mat-icon>
+            <span matLine>Categories</span>
+          </mat-list-item>
+          
+          <mat-list-item routerLink="/admin/reviews" routerLinkActive="active">
+            <mat-icon matListIcon>rate_review</mat-icon>
+            <span matLine>Reviews</span>
+          </mat-list-item>
+        </mat-nav-list>
+      </div>
+    </nav>
+
+    <main class="content-area">
+      <app-admin-message></app-admin-message>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { JwtService } from 'src/app/modules/common/service/jwt.service';
 
 @Component({
   selector: 'app-fullpageadmin',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FullpageadminComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private jwtService: JwtService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  logout(): void {
+    this.jwtService.logout();
+    this.router.navigate(['/admin/login']);
+  }
 }

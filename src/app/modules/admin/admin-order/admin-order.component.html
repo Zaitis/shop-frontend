@@ -1,35 +1,126 @@
-<h1>Zamówienia</h1>
+<div class="admin-orders">
+  <div class="page-header">
+    <div class="header-content">
+      <div class="title-section">
+        <h1>
+          <mat-icon>shopping_cart</mat-icon>
+          Order Management
+        </h1>
+        <p class="subtitle">Track and manage customer orders</p>
+      </div>
+      <div class="header-actions">
+        <button mat-raised-button color="accent" routerLink="/admin/orders/export" class="export-btn">
+          <mat-icon>file_download</mat-icon>
+          Export Orders
+        </button>
+        <button mat-raised-button color="primary" routerLink="/admin/orders/stats" class="stats-btn">
+          <mat-icon>analytics</mat-icon>
+          View Statistics
+        </button>
+      </div>
+    </div>
+  </div>
 
-<table mat-table [dataSource]="data">
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> Id </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-    <ng-container matColumnDef="placeDate">
-        <th mat-header-cell *matHeaderCellDef> Data </th>
-        <td mat-cell *matCellDef="let element"> {{element.placeDate |  date : 'yyyy-MM-dd HH:mm'}} </td>
-    </ng-container>
-    <ng-container matColumnDef="orderStatus">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let element"><span class="status-{{element.orderStatus}}">{{element.orderStatus}}</span></td>
-    </ng-container>
-    <ng-container matColumnDef="grossValue">
-        <th mat-header-cell *matHeaderCellDef> Wartość </th>
-        <td mat-cell *matCellDef="let element"> {{element.grossValue}}</td>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Akcje </th>
-        <td mat-cell *matCellDef="let element">
-            <button mat-icon-button [routerLink]="['/admin/orders/update/', element.id]">
-                <mat-icon color="primary">edit</mat-icon>
-            </button>
-        </td>
-    </ng-container>
+  <div class="orders-content">
+    <mat-card class="orders-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>receipt</mat-icon>
+          Orders List
+        </mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="table-container">
+          <table mat-table [dataSource]="data" class="orders-table">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef class="id-column">
+                <strong>Order ID</strong>
+              </th>
+              <td mat-cell *matCellDef="let element" class="id-cell">
+                <span class="id-badge">{{ element.id }}</span>
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="placeDate">
+              <th mat-header-cell *matHeaderCellDef class="date-column">
+                <strong>Order Date</strong>
+              </th>
+              <td mat-cell *matCellDef="let element" class="date-cell">
+                <div class="date-info">
+                  <mat-icon>schedule</mat-icon>
+                  <span>{{ element.placeDate | date:'yyyy-MM-dd HH:mm' }}</span>
+                </div>
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="orderStatus">
+              <th mat-header-cell *matHeaderCellDef class="status-column">
+                <strong>Status</strong>
+              </th>
+              <td mat-cell *matCellDef="let element" class="status-cell">
+                <span class="status-badge status-{{ element.orderStatus }}">
+                  {{ element.orderStatus }}
+                </span>
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="grossValue">
+              <th mat-header-cell *matHeaderCellDef class="value-column">
+                <strong>Total Value</strong>
+              </th>
+              <td mat-cell *matCellDef="let element" class="value-cell">
+                <div class="value-info">
+                  <mat-icon>attach_money</mat-icon>
+                  <span class="value">{{ element.grossValue }}</span>
+                </div>
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class="actions-column">
+                <strong>Actions</strong>
+              </th>
+              <td mat-cell *matCellDef="let element" class="actions-cell">
+                <div class="action-buttons">
+                  <button 
+                    mat-icon-button 
+                    color="primary" 
+                    [routerLink]="['/admin/orders/update/', element.id]"
+                    matTooltip="Edit Order">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button 
+                    mat-icon-button 
+                    color="accent" 
+                    matTooltip="View Details"
+                    (click)="viewOrderDetails(element)">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="order-row"></tr>
+          </table>
+        </div>
 
-<mat-paginator [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons [pageSize]="25" [length]="totalElements"
-    aria-label="Select page of periodic elements">
-</mat-paginator>
+        <mat-paginator 
+          [pageSizeOptions]="[10, 25, 50, 100]" 
+          showFirstLastButtons 
+          [pageSize]="25" 
+          [length]="totalElements"
+          class="modern-paginator"
+          aria-label="Select page of orders">
+        </mat-paginator>
+
+        <div class="empty-state" *ngIf="data.length === 0">
+          <mat-icon>shopping_cart</mat-icon>
+          <h3>No Orders Found</h3>
+          <p>Orders will appear here once customers start placing them</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
