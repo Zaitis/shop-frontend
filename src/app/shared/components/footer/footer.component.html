@@ -1,29 +1,62 @@
-<div class="flex-row footerManu">
-    <div class="flex-1">
-        <div>Kategorie</div>
-        <ul>
-            <li>Kategoria 1</li>
-            <li>Kategoria 2</li>
-            <li>Kategoria 3</li>
-        </ul>
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="/categories/electronics">Electronics</a></li>
+        <li><a href="/categories/clothing">Clothing</a></li>
+        <li><a href="/categories/books">Books</a></li>
+        <li><a href="/categories/sports">Sports</a></li>
+      </ul>
     </div>
-    <div class="flex-1">
-        <div>O firmie</div>
-        <ul>
-            <li>O firmie 1</li>
-            <li>O firmie 2</li>
-            <li>O firmie 3</li>
-        </ul>
+    
+    <div class="footer-section">
+      <h4>About Us</h4>
+      <ul>
+        <li><a href="/about">Our Story</a></li>
+        <li><a href="/careers">Careers</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/locations">Store Locations</a></li>
+      </ul>
     </div>
-    <div class="flex-1">
-        <div>Pomoc</div>
-        <ul>
-            <li>Pomoc 1</li>
-            <li>Pomoc 2</li>
-            <li>Pomoc 3</li>
-        </ul>
+    
+    <div class="footer-section">
+      <h4>Customer Service</h4>
+      <ul>
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/shipping">Shipping Info</a></li>
+        <li><a href="/returns">Returns</a></li>
+        <li><a href="/faq">FAQ</a></li>
+      </ul>
     </div>
-</div>
-<div flexLayout="column" class="footerCopy">
-Copy &copy; Shop 2023 Wszystkie prawa zastrzeżone.
-</div>
+    
+    <div class="footer-section">
+      <h4>Follow Us</h4>
+             <div class="social-links">
+         <a href="#" class="social-link">
+           <mat-icon>share</mat-icon>
+         </a>
+         <a href="#" class="social-link">
+           <mat-icon>group</mat-icon>
+         </a>
+         <a href="#" class="social-link">
+           <mat-icon>camera_alt</mat-icon>
+         </a>
+         <a href="#" class="social-link">
+           <mat-icon>email</mat-icon>
+         </a>
+       </div>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <div class="footer-copy">
+      <p>&copy; {{ currentYear }} Shop. All rights reserved.</p>
+    </div>
+    <div class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/cookies">Cookie Policy</a>
+    </div>
+  </div>
+</footer>

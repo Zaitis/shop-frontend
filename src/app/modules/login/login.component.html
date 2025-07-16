@@ -1,36 +1,82 @@
-<div class="flex-row">
-    <div class="flex-1">
-        <h2>Login</h2>
-        <form class="loginForm flex-column" [formGroup]="loginForm" (submit)="login()">
-            <div *ngIf="loginError" class="error">Email or password is wrong!</div>
-            <mat-form-field appearance="fill">
-                <mat-label>Email</mat-label>
-                <input matInput formControlName="username">
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Password</mat-label>
-                <input type="password" matInput formControlName="password">
-            </mat-form-field>
-            <button mat-flat-button color="primary">Login</button>
-        </form>
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <mat-icon class="login-icon">store</mat-icon>
+      <h1>Welcome to Shop</h1>
+      <p>Please login to your account or create a new one</p>
     </div>
-    <div class="flex-1">
-        <h2>Sign Up</h2>
-        <form [formGroup]="registerForm" class="flex-column registerForm" (submit)="register()">
-            <div *ngIf="registerError" class="error">{{registerErrorMessage}}</div>
-            <mat-form-field appearance="fill">
-                <mat-label>E-mail</mat-label>
-                <input matInput formControlName="username">
+    
+    <mat-tab-group animationDuration="300ms" class="login-tabs">
+      <!-- Login Tab -->
+      <mat-tab label="Login">
+        <div class="tab-content">
+          <form class="auth-form" [formGroup]="loginForm" (submit)="login()">
+            <div *ngIf="loginError" class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>Email or password is wrong!</span>
+            </div>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="username" type="email" placeholder="Enter your email">
+              <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Password</mat-label>
-                <input type="password" matInput formControlName="password">
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" type="password" placeholder="Enter your password">
+              <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Repeat Password</mat-label>
-                <input type="password" matInput formControlName="repeatPassword" placeholder="Powtórz hasło">
+            
+            <div class="form-actions">
+              <button mat-raised-button color="primary" type="submit" class="auth-button">
+                <mat-icon>login</mat-icon>
+                Login
+              </button>
+              <button mat-stroked-button type="button" class="forgot-password">
+                Forgot Password?
+              </button>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+      
+      <!-- Register Tab -->
+      <mat-tab label="Sign Up">
+        <div class="tab-content">
+          <form class="auth-form" [formGroup]="registerForm" (submit)="register()">
+            <div *ngIf="registerError" class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{registerErrorMessage}}</span>
+            </div>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="username" type="email" placeholder="Enter your email">
+              <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
-            <button mat-flat-button color="primary">Register</button>
-        </form>
-    </div>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" type="password" placeholder="Create a password">
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Repeat Password</mat-label>
+              <input matInput formControlName="repeatPassword" type="password" placeholder="Confirm your password">
+              <mat-icon matSuffix>lock_outline</mat-icon>
+            </mat-form-field>
+            
+            <div class="form-actions">
+              <button mat-raised-button color="primary" type="submit" class="auth-button">
+                <mat-icon>person_add</mat-icon>
+                Register
+              </button>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

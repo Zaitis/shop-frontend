@@ -1,15 +1,154 @@
 @use '../../../../variables.scss' as variables;
-:host{
-    background:variables.$darkgray;
-    padding: 20px;
+
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 3px solid #f39c12;
 }
 
-.logo{
-    font-size: 33px;
-    color:variables.$white;
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.logoIcon, .shopingBasket{
-    font-size: 33px;
-    padding:2px;
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  
+  .logo-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: #f39c12;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+  
+  .logo-text {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #fff, #f39c12);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  button {
+    color: white;
+    font-weight: 500;
+    border-radius: 25px;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    
+    &.active {
+      background: linear-gradient(45deg, #27ae60, #2ecc71);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+    }
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    mat-icon {
+      margin-right: 6px;
+      font-size: 20px;
+    }
+  }
+}
+
+.actions-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  .cart-button {
+    color: white;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: linear-gradient(45deg, #e74c3c, #c0392b);
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+    }
+    
+    mat-icon {
+      font-size: 24px;
+    }
+  }
+  
+  button {
+    color: white;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: linear-gradient(45deg, #3498db, #2980b9);
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .header-container {
+    padding: 12px 16px;
+  }
+  
+  .navigation {
+    gap: 8px;
+    
+    button {
+      padding: 6px 12px;
+      font-size: 14px;
+      
+      mat-icon {
+        font-size: 18px;
+        margin-right: 4px;
+      }
+    }
+  }
+  
+  .logo-section {
+    .logo-text {
+      font-size: 22px;
+    }
+    
+    .logo-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .navigation {
+    display: none; // Hide on very small screens
+  }
 }

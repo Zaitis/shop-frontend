@@ -1,43 +1,39 @@
 // Custom theme configuration for the shop application
 @use '@angular/material' as mat;
 
-// Include the common styles for Angular Material
+// Include core styles
 @include mat.core();
 
-// Define modern color palette using Material's built-in palettes
-$primary-palette: mat.define-palette(mat.$blue-palette);
-$accent-palette: mat.define-palette(mat.$pink-palette);
-$warn-palette: mat.define-palette(mat.$red-palette);
+// Define color palettes
+$primary: mat.define-palette(mat.$blue-palette);
+$accent: mat.define-palette(mat.$pink-palette);
+$warn: mat.define-palette(mat.$red-palette);
 
-// Create theme
+// Create the theme
 $theme: mat.define-light-theme((
   color: (
-    primary: $primary-palette,
-    accent: $accent-palette,
-    warn: $warn-palette,
-  ),
-  typography: mat.define-typography-config(
-    $font-family: 'Inter, "Helvetica Neue", sans-serif',
-  ),
-  density: 0,
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
 ));
 
-// Include theme styles
+// Include theme styles for Angular Material components
 @include mat.all-component-themes($theme);
 
 // Custom CSS variables for consistent theming
 :root {
-  --primary-color: #{mat.get-color-from-palette($primary-palette, 500)};
-  --primary-light: #{mat.get-color-from-palette($primary-palette, 100)};
-  --primary-dark: #{mat.get-color-from-palette($primary-palette, 700)};
+  --primary-color: #2196f3;
+  --primary-light: #bbdefb;
+  --primary-dark: #1976d2;
   
-  --accent-color: #{mat.get-color-from-palette($accent-palette, 500)};
-  --accent-light: #{mat.get-color-from-palette($accent-palette, 100)};
-  --accent-dark: #{mat.get-color-from-palette($accent-palette, 700)};
+  --accent-color: #e91e63;
+  --accent-light: #f8bbd9;
+  --accent-dark: #c2185b;
   
-  --warn-color: #{mat.get-color-from-palette($warn-palette, 500)};
-  --warn-light: #{mat.get-color-from-palette($warn-palette, 100)};
-  --warn-dark: #{mat.get-color-from-palette($warn-palette, 700)};
+  --warn-color: #f44336;
+  --warn-light: #ffcdd2;
+  --warn-dark: #d32f2f;
   
   --background-color: #fafafa;
   --surface-color: #ffffff;

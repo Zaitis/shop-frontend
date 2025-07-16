@@ -17,6 +17,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [],
@@ -38,7 +40,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatNativeDateModule,
     MatFormFieldModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    MatTabsModule
   ],
   exports: [
     MatIconModule,
@@ -57,7 +61,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatNativeDateModule,
     MatFormFieldModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    MatTabsModule
   ]
 })
 export class MaterialModule { }

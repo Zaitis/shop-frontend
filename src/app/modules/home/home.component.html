@@ -1,1 +1,60 @@
-<p>Main Page</p>
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Welcome to Our Shop</h1>
+      <p class="hero-subtitle">Find the best products for your needs</p>
+      <button mat-raised-button color="primary" class="cta-button">Shop Now</button>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="featured-section">
+    <div class="container">
+      <h2 class="section-title">Featured Products</h2>
+      <div class="products-grid" *ngIf="!loading && products && products.length > 0">
+        <div class="product-card" *ngFor="let product of products">
+          <div class="product-image">
+            <img [src]="product.image || '/assets/image-placeholder.png'" [alt]="product.name">
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-price">{{ product.price | currency }}</p>
+            <button mat-raised-button color="primary" class="add-to-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Loading State -->
+      <div class="loading-container" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+        <p>Loading products...</p>
+      </div>
+      
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="!loading && (!products || products.length === 0)">
+        <mat-icon class="empty-icon">inventory_2</mat-icon>
+        <h3>No products available</h3>
+        <p>Please check back later or ensure your backend is running.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <div class="container">
+      <h2 class="section-title">Shop by Category</h2>
+      <div class="categories-grid" *ngIf="categories && categories.length > 0">
+        <div class="category-card" *ngFor="let category of categories">
+          <div class="category-content">
+            <h3>{{ category.name }}</h3>
+            <p>{{ category.description || 'Explore our ' + category.name + ' collection' }}</p>
+            <button mat-stroked-button color="primary" [routerLink]="['/categories', category.slug]">
+              Browse {{ category.name }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

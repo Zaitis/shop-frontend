@@ -1,129 +1,174 @@
+/* You can add global styles to this file, and also import other style files */
 @use 'variables.scss' as variables;
-@use 'app/shared/styles/flex-utilities.scss' as flex;
-// @use 'app/shared/styles/theme.scss' as theme;
+@use '@angular/material' as mat;
 
-// Google Fonts
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #2c3e50;
+}
 
-// Global styles
-*, *::before, *::after {
+// Global improvements with colors and rounded corners
+* {
   box-sizing: border-box;
 }
 
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Inter', 'Helvetica Neue', sans-serif;
-  background-color: #fafafa;
-  color: rgba(0, 0, 0, 0.87);
-  line-height: 1.6;
+// Fix for Material menu positioning issues
+.cdk-overlay-container {
+  position: fixed !important;
+  z-index: 1000 !important;
 }
 
-// Content area styling
-.content {
-  padding: 24px;
-  background: #fafafa;
-  min-height: calc(100vh - 160px); // Adjust based on header/footer height
+.cdk-overlay-pane {
+  position: fixed !important;
 }
 
-// Modern card styling
-.mat-card {
+// Language selector specific menu positioning
+.mat-mdc-menu-panel {
+  min-width: 140px !important;
   border-radius: 8px !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-  transition: box-shadow 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  backdrop-filter: blur(10px) !important;
+  margin-top: 8px !important;
+}
+
+.mat-mdc-menu-item {
+  border-radius: 4px !important;
+  margin: 4px 8px !important;
+  min-height: 36px !important;
+  transition: all 0.3s ease !important;
   
   &:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+    background-color: #f5f5f5 !important;
   }
 }
 
-// Button styling
-.mat-button, .mat-raised-button, .mat-flat-button {
-  border-radius: 8px !important;
-  font-weight: 500 !important;
-  text-transform: none !important;
-  letter-spacing: 0.5px !important;
-}
-
-// Form field styling
-.mat-form-field {
-  .mat-form-field-flex {
-    border-radius: 8px !important;
-  }
-}
-
-// Snackbar styling
-.snack-bar-bg-color-ok {
-  background-color: #4caf50 !important;
-  color: white !important;
-}
-
-.snack-bar-bg-color-error {
-  background-color: #f44336 !important;
-  color: white !important;
-}
-
-// Table styling
-table {
-  width: 100%;
-  border-collapse: collapse;
+// Improved button styling
+.mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-outlined-button {
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
   
-  th, td {
-    text-align: left;
-    padding: 8px 16px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  &:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
   }
+}
+
+// Improved card styling
+.mat-mdc-card {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
   
-  th {
-    font-weight: 600;
-    background-color: #ffffff;
-    color: rgba(0, 0, 0, 0.87);
+  &:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15) !important;
   }
 }
 
-// Error message styling
-.error {
-  color: #f44336;
-  font-size: 14px;
-  margin-top: 4px;
-  margin-bottom: 8px;
-}
-
-// Loading spinner
-.loading-spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-}
-
-// Responsive design
-@media (max-width: 768px) {
-  .content {
-    padding: 16px;
-  }
+// Improved form field styling
+.mat-mdc-form-field {
+  border-radius: 12px !important;
   
-  .mat-card {
-    margin-bottom: 16px;
+  .mat-mdc-form-field-flex {
+    border-radius: 12px !important;
   }
 }
 
-// Scrollbar styling
+// Improved dialog styling
+.mat-mdc-dialog-container {
+  border-radius: 16px !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15) !important;
+}
+
+// Improved snackbar styling
+.mat-mdc-snack-bar-container {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+// Improved table styling
+.mat-mdc-table {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+// Color theme improvements
+.primary-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.success-gradient {
+  background: linear-gradient(45deg, #27ae60, #2ecc71);
+  color: white;
+}
+
+.warning-gradient {
+  background: linear-gradient(45deg, #f39c12, #e67e22);
+  color: white;
+}
+
+.danger-gradient {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+.info-gradient {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  color: white;
+}
+
+// Scrollbar improvements
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #fafafa;
+  background: #f1f1f1;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #bbdefb;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2196f3;
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+// Selection color
+::selection {
+  background: rgba(102, 126, 234, 0.2);
+  color: #2c3e50;
+}
+
+// Focus improvements
+*:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+// Link improvements
+a {
+  color: #667eea;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: #764ba2;
+    text-decoration: underline;
+  }
+}
+
+// Loading spinner improvements
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #667eea;
 }

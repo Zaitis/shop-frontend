@@ -1,5 +1,26 @@
-<mat-selection-list [multiple]="false">
-    <mat-list-option *ngFor="let category of categories">
-        <a routerLink ="{{'/categories/'+ category.slug}}">{{category.name}}</a>
-    </mat-list-option>
-</mat-selection-list>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h3>Categories</h3>
+  </div>
+  
+  <div class="sidebar-content">
+    <mat-nav-list *ngIf="categories && categories.length > 0">
+      <mat-list-item *ngFor="let category of categories" class="category-item">
+        <a [routerLink]="['/categories', category.slug]" 
+           routerLinkActive="active"
+           class="category-link">
+          <mat-icon matListIcon>category</mat-icon>
+          <span matLine>{{ category.name }}</span>
+          <span matLine class="category-description" *ngIf="category.description">
+            {{ category.description }}
+          </span>
+        </a>
+      </mat-list-item>
+    </mat-nav-list>
+    
+    <div class="empty-state" *ngIf="!categories || categories.length === 0">
+      <mat-icon class="empty-icon">category</mat-icon>
+      <p>No categories available</p>
+    </div>
+  </div>
+</div>
