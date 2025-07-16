@@ -25,8 +25,15 @@ jobs:
         
     - name: Install dependencies
       run: |
-        # Use npm ci for clean CI install
-        npm ci --include=optional --no-fund --no-audit
+        # Fix rollup dependency issue as per npm bug report
+        # https://github.com/npm/cli/issues/4828
+        rm -rf node_modules package-lock.json
+        
+        # Install dependencies with npm install (not npm ci) for optional deps
+        npm install --no-fund --no-audit
+        
+        # Explicitly install rollup platform-specific binary
+        npm install @rollup/rollup-linux-x64-gnu --save-dev --no-fund --no-audit
         
         # Verify Angular CLI installation
         if [ ! -f "node_modules/.bin/ng" ]; then
@@ -37,6 +44,9 @@ jobs:
         # Verify installation
         ls -la node_modules/.bin/ | grep ng || echo "ng not found in node_modules/.bin"
         npm list @angular/cli || echo "Angular CLI not found in local dependencies"
+        
+        # Verify rollup dependency
+        npm list @rollup/rollup-linux-x64-gnu || echo "Rollup platform binary not found"
       
     - name: Build Angular app for production
       run: |
@@ -49,8 +59,22 @@ jobs:
         # Verify ng is available
         which ng || echo "ng not found in PATH"
         
-        # Build the application (try npm script first, then fallback to npx)
-        npm run build:prod || npx ng build --configuration production
+        # Try multiple build approaches
+        echo "🚀 Attempting production build..."
+        
+        # Method 1: Use npm script
+        if npm run build:prod; then
+          echo "✅ Build successful with npm script"
+        # Method 2: Use npx directly
+        elif npx ng build --configuration production; then
+          echo "✅ Build successful with npx"
+        # Method 3: Use ng directly with fallback options
+        elif ng build --configuration production --optimization=false; then
+          echo "✅ Build successful with optimization disabled"
+        else
+          echo "❌ All build methods failed"
+          exit 1
+        fi
       
     - name: Run tests
       run: |
@@ -64,9 +88,32 @@ jobs:
       
     - name: Verify build output
       run: |
+        echo "📦 Verifying build output..."
+        
+        # Check if dist directory exists
+        if [ ! -d "dist" ]; then
+          echo "❌ No dist directory found!"
+          exit 1
+        fi
+        
+        # Check if index.html exists
+        if [ ! -f "dist/index.html" ]; then
+          echo "❌ No index.html found in dist directory!"
+          exit 1
+        fi
+        
+        # List build contents
+        echo "📁 Build contents:"
         ls -la dist/
-        echo "Build size:"
+        
+        # Show build size
+        echo "📏 Build size:"
         du -sh dist/
+        
+        # Count files
+        echo "📄 File count: $(find dist -type f | wc -l)"
+        
+        echo "✅ Build verification complete!"
         
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
