@@ -10,7 +10,7 @@ import { ProductDetailsComponent } from 'src/app/modules/product-details/product
 import { CartComponent } from 'src/app/modules/cart/cart.component';
 import { OrderComponent } from 'src/app/modules/order/order.component';
 import { MaterialModule } from 'src/app/shared/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProfileComponent } from 'src/app/modules/profile/profile.component';
 import { ReplacePipe } from 'src/app/modules/common/pipe/replacePipe';
 
@@ -31,7 +31,8 @@ import { ReplacePipe } from 'src/app/modules/common/pipe/replacePipe';
     RouterModule,
     SharedModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class DefaultModule { }

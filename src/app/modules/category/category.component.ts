@@ -13,7 +13,18 @@ import { PageEvent } from '@angular/material/paginator';
 export class CategoryComponent implements OnInit, OnDestroy {
 
   categoryProducts!: CategoryProducts;
+  loading: boolean = false;
+  
+  // View and sorting properties
+  viewMode: 'grid' | 'list' = 'grid';
+  sortBy: string = 'name';
+  
+  // Pagination properties
+  currentPage: number = 0;
+  pageSize: number = 12;
+  
   private sub!: Subscription;
+  
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
@@ -25,19 +36,40 @@ export class CategoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sub= this.router.events.pipe(
+    this.sub = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => this.getCategoryWithProducts(0, 10));
-    this.getCategoryWithProducts(0, 10);
+    ).subscribe(() => this.getCategoryWithProducts(0, this.pageSize));
+    this.getCategoryWithProducts(0, this.pageSize);
   }
 
   getCategoryWithProducts(page: number, size: number) {
-    let slug = this.route.snapshot.params['slug']
+    let slug = this.route.snapshot.params['slug'];
+    this.loading = true;
     this.categoryService.getCategoryWithProducts(slug, page, size)
-      .subscribe(categoryProducts => this.categoryProducts = categoryProducts)
+      .subscribe({
+        next: (categoryProducts) => {
+          this.categoryProducts = categoryProducts;
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('Error loading category products:', error);
+          this.loading = false;
+        }
+      });
   }
 
-  onPageEvent(event: PageEvent){
+  onPageEvent(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
     this.getCategoryWithProducts(event.pageIndex, event.pageSize);
+  }
+
+  toggleView() {
+    this.viewMode = this.viewMode === 'grid' ? 'list' : 'grid';
+  }
+
+  onSortChange() {
+    this.currentPage = 0;
+    this.getCategoryWithProducts(0, this.pageSize);
   }
 }

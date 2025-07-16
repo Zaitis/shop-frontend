@@ -2,25 +2,107 @@
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-content">
-      <h1 class="hero-title">Welcome to Our Shop</h1>
-      <p class="hero-subtitle">Find the best products for your needs</p>
-      <button mat-raised-button color="primary" class="cta-button">Shop Now</button>
+      <h1 class="hero-title">Your Premier IT Solutions Hub</h1>
+      <p class="hero-subtitle">Discover cutting-edge technology solutions for gaming, business, and professional use</p>
+      <div class="hero-actions">
+        <button mat-raised-button color="primary" class="cta-button" routerLink="/products">
+          <mat-icon>shopping_bag</mat-icon>
+          Shop Now
+        </button>
+        <button mat-stroked-button class="secondary-button" routerLink="/products">
+          <mat-icon>explore</mat-icon>
+          Browse Categories
+        </button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">1000+</span>
+        <span class="stat-label">Products</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">50+</span>
+        <span class="stat-label">Brands</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Support</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title">Why Choose Us</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <mat-icon class="feature-icon">verified</mat-icon>
+          <h3>Authentic Products</h3>
+          <p>Only genuine hardware from authorized distributors with full warranty support</p>
+        </div>
+        <div class="feature-card">
+          <mat-icon class="feature-icon">local_shipping</mat-icon>
+          <h3>Fast Delivery</h3>
+          <p>Quick and secure shipping with tracking for all orders nationwide</p>
+        </div>
+        <div class="feature-card">
+          <mat-icon class="feature-icon">support_agent</mat-icon>
+          <h3>Expert Support</h3>
+          <p>Technical assistance from certified professionals for all your IT needs</p>
+        </div>
+        <div class="feature-card">
+          <mat-icon class="feature-icon">price_check</mat-icon>
+          <h3>Best Prices</h3>
+          <p>Competitive pricing with price matching and exclusive deals for members</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Featured Products Section -->
   <section class="featured-section">
     <div class="container">
-      <h2 class="section-title">Featured Products</h2>
+      <div class="section-header">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-subtitle">Handpicked top performers for professionals and enthusiasts</p>
+      </div>
+      
       <div class="products-grid" *ngIf="!loading && products && products.length > 0">
         <div class="product-card" *ngFor="let product of products">
-          <div class="product-image">
-            <img [src]="product.image || '/assets/image-placeholder.png'" [alt]="product.name">
+          <div class="product-image-container">
+            <img [src]="product.image ? '/api/data/productImage/' + product.image : '/assets/image-placeholder.png'" 
+                 [alt]="product.name"
+                 class="product-image">
+            <div class="product-overlay">
+              <button mat-fab color="primary" class="quick-view-btn" [routerLink]="['/products', product.slug]">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </div>
           </div>
           <div class="product-info">
+                         <div class="product-category">
+               <mat-chip-set>
+                 <mat-chip color="primary" selected>{{ product.category }}</mat-chip>
+               </mat-chip-set>
+             </div>
             <h3 class="product-name">{{ product.name }}</h3>
-            <p class="product-price">{{ product.price | currency }}</p>
-            <button mat-raised-button color="primary" class="add-to-cart-btn">Add to Cart</button>
+            <p class="product-description">{{ product.description }}</p>
+            <div class="product-footer">
+              <div class="price-container">
+                <span class="product-price">{{ product.price | currency }}</span>
+              </div>
+              <div class="product-actions">
+                <button mat-raised-button color="primary" [routerLink]="['/products', product.slug]">
+                  <mat-icon>info</mat-icon>
+                  View Details
+                </button>
+                <button mat-raised-button color="accent" [routerLink]="['/cart']" [queryParams]="{productId: product.id}">
+                  <mat-icon>add_shopping_cart</mat-icon>
+                  Add to Cart
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -43,16 +125,103 @@
   <!-- Categories Section -->
   <section class="categories-section">
     <div class="container">
-      <h2 class="section-title">Shop by Category</h2>
+      <div class="section-header">
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-subtitle">Find exactly what you need in our specialized categories</p>
+      </div>
+      
       <div class="categories-grid" *ngIf="categories && categories.length > 0">
         <div class="category-card" *ngFor="let category of categories">
+          <div class="category-icon">
+            <mat-icon>{{ getCategoryIcon(category.name) }}</mat-icon>
+          </div>
           <div class="category-content">
             <h3>{{ category.name }}</h3>
-            <p>{{ category.description || 'Explore our ' + category.name + ' collection' }}</p>
-            <button mat-stroked-button color="primary" [routerLink]="['/categories', category.slug]">
-              Browse {{ category.name }}
+            <p>{{ category.description || getDefaultDescription(category.name) }}</p>
+            <button mat-raised-button color="primary" [routerLink]="['/categories', category.slug]">
+              <mat-icon>arrow_forward</mat-icon>
+              Explore {{ category.name }}
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="container">
+      <h2 class="section-title">What Our Customers Say</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <mat-icon class="quote-icon">format_quote</mat-icon>
+            <p>"Excellent service and genuine products. My gaming setup is now complete thanks to their expert recommendations."</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-info">
+              <h4>Alex Johnson</h4>
+              <span>Gaming Enthusiast</span>
+            </div>
+            <div class="rating">
+              <mat-icon *ngFor="let star of [1,2,3,4,5]">star</mat-icon>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <mat-icon class="quote-icon">format_quote</mat-icon>
+            <p>"Professional grade equipment at competitive prices. Their technical support helped me choose the right workstation."</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-info">
+              <h4>Sarah Chen</h4>
+              <span>Software Developer</span>
+            </div>
+            <div class="rating">
+              <mat-icon *ngFor="let star of [1,2,3,4,5]">star</mat-icon>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <mat-icon class="quote-icon">format_quote</mat-icon>
+            <p>"Fast shipping and excellent customer service. The build quality of their products is outstanding."</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-info">
+              <h4>Michael Rodriguez</h4>
+              <span>IT Manager</span>
+            </div>
+            <div class="rating">
+              <mat-icon *ngFor="let star of [1,2,3,4,5]">star</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-content">
+        <div class="newsletter-text">
+          <h2>Stay Updated</h2>
+          <p>Get the latest deals, new product launches, and tech insights delivered to your inbox</p>
+        </div>
+        <div class="newsletter-form">
+          <mat-form-field appearance="outline" class="email-field">
+            <mat-label>Your email address</mat-label>
+            <input matInput type="email" placeholder="Enter your email">
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+          <button mat-raised-button color="primary" class="subscribe-btn">
+            <mat-icon>notifications</mat-icon>
+            Subscribe
+          </button>
         </div>
       </div>
     </div>
