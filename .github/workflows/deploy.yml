@@ -167,6 +167,11 @@ jobs:
           sudo rm -rf /var/www/shop-demo/*
           echo "🧹 Cleaned deployment directory"
           
+          # Prepare temporary directory for file transfer
+          rm -rf /tmp/shop-deployment
+          mkdir -p /tmp/shop-deployment
+          echo "📁 Temporary directory prepared"
+          
     - name: Copy files to server
       uses: appleboy/scp-action@v0.1.7
       with:
@@ -175,10 +180,10 @@ jobs:
         password: ${{ secrets.SERVER_PASSWORD }}
         port: 22
         source: "dist/*"
-        target: "/var/www/shop-demo/"
+        target: "/tmp/shop-deployment/"
         strip_components: 1
         
-    - name: Set proper permissions and restart services
+    - name: Move files and set permissions
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.SERVER_HOST }}
@@ -186,11 +191,34 @@ jobs:
         password: ${{ secrets.SERVER_PASSWORD }}
         port: 22
         script: |
+          echo "📁 Moving files from temporary directory..."
+          
+          # Verify temporary files exist
+          if [ ! -d "/tmp/shop-deployment" ]; then
+            echo "❌ Temporary deployment directory not found!"
+            exit 1
+          fi
+          
+          # List files in temporary directory
+          echo "📄 Files in temporary directory:"
+          ls -la /tmp/shop-deployment/
+          
+          # Move files to final destination with sudo
+          echo "🚀 Moving files to /var/www/shop-demo/..."
+          sudo cp -r /tmp/shop-deployment/* /var/www/shop-demo/
+          
+          # Clean up temporary directory
+          rm -rf /tmp/shop-deployment
+          
           echo "🔧 Setting permissions..."
           
           # Set ownership and permissions
           sudo chown -R www-data:www-data /var/www/shop-demo/
           sudo chmod -R 755 /var/www/shop-demo/
+          
+          # Verify deployment
+          echo "✅ Deployment verification:"
+          ls -la /var/www/shop-demo/
           
           # Restart web server
           sudo systemctl reload nginx || sudo systemctl reload apache2 || echo "⚠️ Web server reload failed"
