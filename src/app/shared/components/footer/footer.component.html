@@ -3,60 +3,60 @@
     <div class="footer-section">
       <h4>Categories</h4>
       <ul>
-        <li><a href="/categories/electronics">Electronics</a></li>
-        <li><a href="/categories/clothing">Clothing</a></li>
-        <li><a href="/categories/books">Books</a></li>
-        <li><a href="/categories/sports">Sports</a></li>
+        <li><a routerLink="/categories/desktop-computers">Desktop Computers</a></li>
+        <li><a routerLink="/categories/laptops">Laptops</a></li>
+        <li><a routerLink="/categories/monitors">Monitors</a></li>
+        <li><a routerLink="/categories/accessories">Accessories</a></li>
       </ul>
     </div>
     
     <div class="footer-section">
-      <h4>About Us</h4>
+      <h4>Quick Links</h4>
       <ul>
-        <li><a href="/about">Our Story</a></li>
-        <li><a href="/careers">Careers</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/locations">Store Locations</a></li>
+        <li><a routerLink="/about">About Us</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+        <li><a routerLink="/help">Help Center</a></li>
+        <li><a routerLink="/shipping">Shipping Info</a></li>
       </ul>
     </div>
     
     <div class="footer-section">
       <h4>Customer Service</h4>
       <ul>
-        <li><a href="/help">Help Center</a></li>
-        <li><a href="/shipping">Shipping Info</a></li>
-        <li><a href="/returns">Returns</a></li>
-        <li><a href="/faq">FAQ</a></li>
+        <li><a routerLink="/returns">Returns</a></li>
+        <li><a routerLink="/warranty">Warranty</a></li>
+        <li><a routerLink="/support">Support</a></li>
+        <li><a routerLink="/faq">FAQ</a></li>
       </ul>
     </div>
     
     <div class="footer-section">
       <h4>Follow Us</h4>
-             <div class="social-links">
-         <a href="#" class="social-link">
-           <mat-icon>share</mat-icon>
-         </a>
-         <a href="#" class="social-link">
-           <mat-icon>group</mat-icon>
-         </a>
-         <a href="#" class="social-link">
-           <mat-icon>camera_alt</mat-icon>
-         </a>
-         <a href="#" class="social-link">
-           <mat-icon>email</mat-icon>
-         </a>
-       </div>
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="Facebook">
+          <mat-icon>facebook</mat-icon>
+        </a>
+        <a href="#" class="social-link" aria-label="Twitter">
+          <mat-icon>alternate_email</mat-icon>
+        </a>
+        <a href="#" class="social-link" aria-label="Instagram">
+          <mat-icon>camera_alt</mat-icon>
+        </a>
+        <a href="#" class="social-link" aria-label="LinkedIn">
+          <mat-icon>business</mat-icon>
+        </a>
+      </div>
     </div>
   </div>
   
   <div class="footer-bottom">
     <div class="footer-copy">
-      <p>&copy; {{ currentYear }} Shop. All rights reserved.</p>
+      <p>&copy; {{ currentYear }} IT Shop. All rights reserved. | Created by <a href="https://zaitis.dev" target="_blank" class="creator-link">zaitis.dev</a></p>
     </div>
     <div class="footer-links">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Service</a>
-      <a href="/cookies">Cookie Policy</a>
+      <a routerLink="/privacy">Privacy Policy</a>
+      <a routerLink="/terms">Terms of Service</a>
+      <a routerLink="/cookies">Cookie Policy</a>
     </div>
   </div>
 </footer>

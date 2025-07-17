@@ -13,6 +13,9 @@ import { MaterialModule } from 'src/app/shared/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProfileComponent } from 'src/app/modules/profile/profile.component';
 import { ReplacePipe } from 'src/app/modules/common/pipe/replacePipe';
+import { PrivacyPolicyComponent } from 'src/app/modules/legal/privacy-policy/privacy-policy.component';
+import { TermsOfServiceComponent } from 'src/app/modules/legal/terms-of-service/terms-of-service.component';
+import { CookiePolicyComponent } from 'src/app/modules/legal/cookie-policy/cookie-policy.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { ReplacePipe } from 'src/app/modules/common/pipe/replacePipe';
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    PrivacyPolicyComponent,
+    TermsOfServiceComponent,
+    CookiePolicyComponent
   ]
 })
 export class DefaultModule { }

@@ -19,19 +19,22 @@
       </div>
       
       <div class="actions">
-        <button mat-raised-button color="primary" class="view-toggle-btn" (click)="toggleView()">
+        <button class="modern-button primary view-toggle-btn" (click)="toggleView()">
           <mat-icon>{{ viewMode === 'grid' ? 'view_list' : 'view_module' }}</mat-icon>
           {{ viewMode === 'grid' ? 'List View' : 'Grid View' }}
         </button>
         
-        <mat-form-field appearance="outline" class="sort-field">
-          <mat-label>Sort by</mat-label>
-          <mat-select [(ngModel)]="sortBy" (selectionChange)="onSortChange()">
-            <mat-option value="name">Name</mat-option>
-            <mat-option value="price">Price</mat-option>
-            <mat-option value="newest">Newest</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="form-group">
+          <label class="form-label">Sort by</label>
+          <div class="input-wrapper">
+            <select class="modern-select" [(ngModel)]="sortBy" (change)="onSortChange()">
+              <option value="name">Name</option>
+              <option value="price">Price</option>
+              <option value="newest">Newest</option>
+            </select>
+            <mat-icon class="input-icon">sort</mat-icon>
+          </div>
+        </div>
       </div>
     </div>
   </div>

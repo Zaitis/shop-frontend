@@ -1,0 +1,322 @@
+// Modern Input Styles
+@use '../../../variables.scss' as variables;
+
+// Base input styles
+.modern-input {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border: 2px solid #e1e8ed;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+  
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  &:hover {
+    border-color: #bdc3c7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  &::placeholder {
+    color: #95a5a6;
+    font-weight: 400;
+  }
+  
+  &.error {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+    
+    &:focus {
+      border-color: #c0392b;
+      box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
+    }
+  }
+  
+  &.success {
+    border-color: #27ae60;
+    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+    
+    &:focus {
+      border-color: #2ecc71;
+      box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+    }
+  }
+}
+
+// Material Design Input Overrides
+:host ::ng-deep .mat-mdc-form-field {
+  width: 100%;
+  
+  .mat-mdc-text-field-wrapper {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 2px solid #e1e8ed;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    
+    &:hover {
+      border-color: #bdc3c7;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    &.mat-focused {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      transform: translateY(-1px);
+    }
+    
+    .mat-mdc-form-field-flex {
+      padding: 16px 20px;
+      
+      .mat-mdc-form-field-infix {
+        padding: 0;
+        min-height: auto;
+        
+        .mat-mdc-input-element {
+          font-size: 16px;
+          font-weight: 500;
+          color: #2c3e50;
+          
+          &::placeholder {
+            color: #95a5a6;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+    
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+  
+  .mat-mdc-form-field-label {
+    color: #7f8c8d;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  &.mat-focused .mat-mdc-form-field-label {
+    color: #667eea;
+  }
+}
+
+// Modern Button Styles
+.modern-button {
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    transition: left 0.3s ease;
+    z-index: -1;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    
+    &::before {
+      left: 0;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &.primary {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    
+    &::before {
+      background: linear-gradient(45deg, #5a6fd8, #6a4190);
+    }
+  }
+  
+  &.secondary {
+    background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+    color: white;
+    
+    &::before {
+      background: linear-gradient(45deg, #8a9a9b, #6f7c7d);
+    }
+  }
+  
+  &.success {
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+    color: white;
+    
+    &::before {
+      background: linear-gradient(45deg, #229954, #28b463);
+    }
+  }
+  
+  &.danger {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    color: white;
+    
+    &::before {
+      background: linear-gradient(45deg, #d63031, #a93226);
+    }
+  }
+  
+  &.warning {
+    background: linear-gradient(45deg, #f39c12, #e67e22);
+    color: white;
+    
+    &::before {
+      background: linear-gradient(45deg, #e67e22, #d35400);
+    }
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+// Modern Select Styles
+.modern-select {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border: 2px solid #e1e8ed;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  &:hover {
+    border-color: #bdc3c7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Modern Textarea Styles
+.modern-textarea {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border: 2px solid #e1e8ed;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  resize: vertical;
+  min-height: 120px;
+  
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  &:hover {
+    border-color: #bdc3c7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  &::placeholder {
+    color: #95a5a6;
+    font-weight: 400;
+  }
+}
+
+// Form Group Styles
+.form-group {
+  margin-bottom: 24px;
+  
+  .form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 14px;
+  }
+  
+  .form-error {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  
+  .form-help {
+    color: #7f8c8d;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .modern-input,
+  .modern-select,
+  .modern-textarea {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+  
+  .modern-button {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modern-input,
+  .modern-select,
+  .modern-textarea {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  
+  .modern-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+} 

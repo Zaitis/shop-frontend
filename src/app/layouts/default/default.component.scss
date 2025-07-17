@@ -13,6 +13,7 @@
   flex-direction: row;
   height: 100%;
   overflow: hidden;
+  width: 100%;
 }
 
 .flex-20 {
@@ -20,8 +21,10 @@
   min-width: 280px;
   max-width: 280px;
   overflow-y: auto;
+  overflow-x: hidden;
   background: #f8f9fa;
   border-right: 1px solid #dee2e6;
+  flex-shrink: 0;
   
   @media (max-width: 768px) {
     flex: 0 0 250px;
@@ -33,11 +36,15 @@
 .flex-80 {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   background: #ffffff;
+  min-width: 0;
 }
 
 .content {
   padding: 0;
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
 }

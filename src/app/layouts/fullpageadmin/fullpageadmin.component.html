@@ -25,34 +25,34 @@
             <span matLine>Dashboard</span>
           </mat-list-item>
           
-          <mat-list-item routerLink="/admin/orders" routerLinkActive="active">
+          <mat-list-item routerLink="/admin/orders" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <mat-icon matListIcon>shopping_cart</mat-icon>
             <span matLine>Orders</span>
           </mat-list-item>
           
           <div class="submenu-container">
-            <mat-list-item routerLink="/admin/orders/export" routerLinkActive="sub-active" class="submenu-item">
+            <mat-list-item routerLink="/admin/orders/export" routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact: true}" class="submenu-item">
               <mat-icon matListIcon>file_download</mat-icon>
               <span matLine>Export Orders</span>
             </mat-list-item>
             
-            <mat-list-item routerLink="/admin/orders/stats" routerLinkActive="sub-active" class="submenu-item">
+            <mat-list-item routerLink="/admin/orders/stats" routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact: true}" class="submenu-item">
               <mat-icon matListIcon>analytics</mat-icon>
               <span matLine>Statistics</span>
             </mat-list-item>
           </div>
           
-          <mat-list-item routerLink="/admin/products" routerLinkActive="active">
+          <mat-list-item routerLink="/admin/products" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <mat-icon matListIcon>inventory</mat-icon>
             <span matLine>Products</span>
           </mat-list-item>
           
-          <mat-list-item routerLink="/admin/categories" routerLinkActive="active">
+          <mat-list-item routerLink="/admin/categories" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <mat-icon matListIcon>category</mat-icon>
             <span matLine>Categories</span>
           </mat-list-item>
           
-          <mat-list-item routerLink="/admin/reviews" routerLinkActive="active">
+          <mat-list-item routerLink="/admin/reviews" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <mat-icon matListIcon>rate_review</mat-icon>
             <span matLine>Reviews</span>
           </mat-list-item>

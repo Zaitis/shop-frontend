@@ -12,37 +12,50 @@
     <div class="filters-container">
       <!-- Search Bar -->
       <div class="search-bar">
-        <mat-form-field appearance="outline" class="search-field">
-          <mat-label>Search products...</mat-label>
-          <input matInput [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="Search by name, brand, or category">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
+        <div class="form-group">
+          <label class="form-label">Search products...</label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              class="modern-input" 
+              [(ngModel)]="searchTerm" 
+              (input)="onSearchChange()" 
+              placeholder="Search by name, brand, or category">
+            <mat-icon class="input-icon">search</mat-icon>
+          </div>
+        </div>
       </div>
 
       <!-- Filter Controls -->
       <div class="filter-controls">
-        <mat-form-field appearance="outline" class="filter-field">
-          <mat-label>Sort by</mat-label>
-          <mat-select [(ngModel)]="sortBy" (selectionChange)="onSortChange()">
-            <mat-option value="name">Name</mat-option>
-            <mat-option value="price">Price</mat-option>
-            <mat-option value="category">Category</mat-option>
-            <mat-option value="newest">Newest</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="form-group">
+          <label class="form-label">Sort by</label>
+          <div class="input-wrapper">
+            <select class="modern-select" [(ngModel)]="sortBy" (change)="onSortChange()">
+              <option value="name">Name</option>
+              <option value="price">Price</option>
+              <option value="category">Category</option>
+              <option value="newest">Newest</option>
+            </select>
+            <mat-icon class="input-icon">sort</mat-icon>
+          </div>
+        </div>
 
-        <mat-form-field appearance="outline" class="filter-field">
-          <mat-label>Price Range</mat-label>
-          <mat-select [(ngModel)]="priceRange" (selectionChange)="onPriceFilterChange()">
-            <mat-option value="all">All Prices</mat-option>
-            <mat-option value="0-500">$0 - $500</mat-option>
-            <mat-option value="500-1000">$500 - $1,000</mat-option>
-            <mat-option value="1000-2000">$1,000 - $2,000</mat-option>
-            <mat-option value="2000+">$2,000+</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="form-group">
+          <label class="form-label">Price Range</label>
+          <div class="input-wrapper">
+            <select class="modern-select" [(ngModel)]="priceRange" (change)="onPriceFilterChange()">
+              <option value="all">All Prices</option>
+              <option value="0-500">$0 - $500</option>
+              <option value="500-1000">$500 - $1,000</option>
+              <option value="1000-2000">$1,000 - $2,000</option>
+              <option value="2000+">$2,000+</option>
+            </select>
+            <mat-icon class="input-icon">attach_money</mat-icon>
+          </div>
+        </div>
 
-        <button mat-raised-button color="primary" class="view-toggle-btn" (click)="toggleView()">
+        <button class="modern-button primary view-toggle-btn" (click)="toggleView()">
           <mat-icon>{{ viewMode === 'grid' ? 'view_list' : 'view_module' }}</mat-icon>
           {{ viewMode === 'grid' ? 'List View' : 'Grid View' }}
         </button>

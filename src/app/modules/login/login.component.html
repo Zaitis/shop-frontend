@@ -16,24 +16,38 @@
               <span>Email or password is wrong!</span>
             </div>
             
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="username" type="email" placeholder="Enter your email">
-              <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <div class="input-wrapper">
+                <input 
+                  type="email" 
+                  formControlName="username" 
+                  placeholder="Enter your email"
+                  class="modern-input"
+                  [class.error]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                <mat-icon class="input-icon">email</mat-icon>
+              </div>
+            </div>
             
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Password</mat-label>
-              <input matInput formControlName="password" type="password" placeholder="Enter your password">
-              <mat-icon matSuffix>lock</mat-icon>
-            </mat-form-field>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="input-wrapper">
+                <input 
+                  type="password" 
+                  formControlName="password" 
+                  placeholder="Enter your password"
+                  class="modern-input"
+                  [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                <mat-icon class="input-icon">lock</mat-icon>
+              </div>
+            </div>
             
             <div class="form-actions">
-              <button mat-raised-button color="primary" type="submit" class="auth-button">
+              <button type="submit" class="modern-button primary auth-button">
                 <mat-icon>login</mat-icon>
                 Login
               </button>
-              <button mat-stroked-button type="button" class="forgot-password">
+              <button type="button" class="modern-button secondary forgot-password">
                 Forgot Password?
               </button>
             </div>
@@ -50,26 +64,47 @@
               <span>{{registerErrorMessage}}</span>
             </div>
             
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="username" type="email" placeholder="Enter your email">
-              <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <div class="input-wrapper">
+                <input 
+                  type="email" 
+                  formControlName="username" 
+                  placeholder="Enter your email"
+                  class="modern-input"
+                  [class.error]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+                <mat-icon class="input-icon">email</mat-icon>
+              </div>
+            </div>
             
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Password</mat-label>
-              <input matInput formControlName="password" type="password" placeholder="Create a password">
-              <mat-icon matSuffix>lock</mat-icon>
-            </mat-form-field>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="input-wrapper">
+                <input 
+                  type="password" 
+                  formControlName="password" 
+                  placeholder="Create a password"
+                  class="modern-input"
+                  [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                <mat-icon class="input-icon">lock</mat-icon>
+              </div>
+            </div>
             
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Repeat Password</mat-label>
-              <input matInput formControlName="repeatPassword" type="password" placeholder="Confirm your password">
-              <mat-icon matSuffix>lock_outline</mat-icon>
-            </mat-form-field>
+            <div class="form-group">
+              <label class="form-label">Confirm Password</label>
+              <div class="input-wrapper">
+                <input 
+                  type="password" 
+                  formControlName="repeatPassword" 
+                  placeholder="Confirm your password"
+                  class="modern-input"
+                  [class.error]="registerForm.get('repeatPassword')?.invalid && registerForm.get('repeatPassword')?.touched">
+                <mat-icon class="input-icon">lock_outline</mat-icon>
+              </div>
+            </div>
             
             <div class="form-actions">
-              <button mat-raised-button color="primary" type="submit" class="auth-button">
+              <button type="submit" class="modern-button primary auth-button">
                 <mat-icon>person_add</mat-icon>
                 Register
               </button>

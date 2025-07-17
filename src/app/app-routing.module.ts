@@ -26,6 +26,9 @@ import { AdminLoginComponent } from './modules/admin/admin-login/admin-login.com
 import { AdminemptyComponent } from './layouts/adminempty/adminempty.component';
 import { AdminAuthorizeGuard } from './modules/admin/common/guard/adminAuthorizeGuard';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { PrivacyPolicyComponent } from './modules/legal/privacy-policy/privacy-policy.component';
+import { TermsOfServiceComponent } from './modules/legal/terms-of-service/terms-of-service.component';
+import { CookiePolicyComponent } from './modules/legal/cookie-policy/cookie-policy.component';
 
 
 const routes: Routes = [
@@ -37,7 +40,10 @@ const routes: Routes = [
         {path: 'categories/:slug', component: CategoryComponent},
         {path: 'cart', component: CartComponent},
         {path: 'order', component: OrderComponent},
-        {path: 'profile', component: ProfileComponent}
+        {path: 'profile', component: ProfileComponent},
+        {path: 'privacy', component: PrivacyPolicyComponent},
+        {path: 'terms', component: TermsOfServiceComponent},
+        {path: 'cookies', component: CookiePolicyComponent}
     ]
   },
   {

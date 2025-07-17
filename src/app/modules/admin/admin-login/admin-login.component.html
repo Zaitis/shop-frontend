@@ -1,12 +1,51 @@
-<form [formGroup]="formGroup" class="flex-column" (submit)="submit()">
-    <div *ngIf="loginError" class="error">Login or password is wrong!</div>
-    <mat-form-field appearance="fill">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="username">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input type="password" matInput formControlName="password">
-    </mat-form-field>
-    <button mat-flat-button color="primary">Login</button>
-</form>
+<div class="admin-login-container">
+  <div class="admin-login-card">
+    <div class="admin-login-header">
+      <mat-icon class="admin-icon">admin_panel_settings</mat-icon>
+      <h1>Admin Panel</h1>
+      <p>Access your shop management dashboard</p>
+    </div>
+    
+    <form class="admin-form" [formGroup]="formGroup" (submit)="submit()">
+      <div *ngIf="loginError" class="error-message">
+        <mat-icon>error</mat-icon>
+        <span>Invalid credentials. Please try again.</span>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            formControlName="username" 
+            placeholder="Enter your username"
+            class="modern-input"
+            [class.error]="formGroup.get('username')?.invalid && formGroup.get('username')?.touched">
+          <mat-icon class="input-icon">person</mat-icon>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            formControlName="password" 
+            placeholder="Enter your password"
+            class="modern-input"
+            [class.error]="formGroup.get('password')?.invalid && formGroup.get('password')?.touched">
+          <mat-icon class="input-icon">lock</mat-icon>
+        </div>
+      </div>
+      
+      <button type="submit" class="modern-button primary admin-login-btn">
+        <mat-icon>login</mat-icon>
+        Login to Admin Panel
+      </button>
+    </form>
+    
+    <div class="admin-footer">
+      <p>Secure Admin Access</p>
+    </div>
+  </div>
+</div>
