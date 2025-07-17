@@ -4,23 +4,17 @@
   </div>
   
   <div class="sidebar-content">
-    <mat-nav-list *ngIf="categories && categories.length > 0">
-      <mat-list-item *ngFor="let category of categories" class="category-item">
-        <a [routerLink]="['/categories', category.slug]" 
-           routerLinkActive="active"
-           [routerLinkActiveOptions]="{exact: false}"
-           class="category-link"
-           [attr.title]="category.description">
-          <mat-icon matListIcon>{{ getCategoryIcon(category.name) }}</mat-icon>
-          <div class="category-text">
-            <span class="category-name">{{ category.name }}</span>
-            <span class="category-description" *ngIf="category.description">
-              {{ category.description }}
-            </span>
-          </div>
-        </a>
-      </mat-list-item>
-    </mat-nav-list>
+    <div class="category-list" *ngIf="categories && categories.length > 0">
+      <a *ngFor="let category of categories" 
+         [routerLink]="['/categories', category.slug]" 
+         routerLinkActive="active"
+         class="category-item"
+         [title]="category.description">
+        <mat-icon class="category-icon">{{ getCategoryIcon(category.name) }}</mat-icon>
+        <span class="category-name">{{ category.name }}</span>
+        <div class="tooltip" *ngIf="category.description">{{ category.description }}</div>
+      </a>
+    </div>
     
     <div class="empty-state" *ngIf="!categories || categories.length === 0">
       <mat-icon class="empty-icon">category</mat-icon>
