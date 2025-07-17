@@ -11,7 +11,7 @@
 @use 'app/shared/styles/theme';
 
 html, body { 
-  height: 100%; 
+  min-height: 100%; 
   margin: 0; 
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
