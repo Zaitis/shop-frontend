@@ -1,0 +1,125 @@
+// Common table styles and patterns
+@use '../../../variables.scss' as variables;
+
+// Table column styles
+.table-col {
+  padding: 7px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.table-col-header {
+  @extend .table-col;
+  font-weight: 500;
+  min-width: 110px;
+}
+
+.table-col-data {
+  @extend .table-col;
+  width: 100px;
+}
+
+.table-col-wide {
+  min-width: 250px;
+}
+
+// Cart/Order specific columns
+.cart-hcol-1, .cart-col-1,
+.cart-hcol-2, .cart-col-2,
+.cart-hcol-3, .cart-col-3,
+.cart-hcol-4, .cart-col-4,
+.cart-hcol-5, .cart-col-5 {
+  @extend .table-col;
+}
+
+.cart-hcol-1, .cart-hcol-2, .cart-hcol-3, .cart-hcol-4, .cart-hcol-5 {
+  @extend .table-col-header;
+}
+
+.cart-col-1, .cart-col-2, .cart-col-3, .cart-col-4, .cart-col-5 {
+  @extend .table-col-data;
+}
+
+.cart-hcol-2, .cart-col-2 {
+  @extend .table-col-wide;
+}
+
+// Table row styles
+.table-row {
+  background: white;
+  padding: 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.card-hrow, .card-row {
+  @extend .table-row;
+}
+
+// Summary styles
+.summary {
+  padding: 7px;
+  font-size: 18px;
+  width: 100px;
+  text-align: center;
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+.summary-header {
+  @extend .summary;
+  padding: 11px;
+}
+
+// Order specific styles
+.orderSummary {
+  font-size: 18px;
+  
+  div {
+    margin-bottom: 12px;
+  }
+}
+
+.orderTotal {
+  background: white;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.orderTotalValue {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.paymentNote {
+  font-weight: 700;
+}
+
+// Form styles
+.orderForm {
+  width: 400px;
+}
+
+.errorMessage {
+  color: red;
+}
+
+.orderButton {
+  font-size: 22px;
+  width: 220px;
+}
+
+.quantityInput {
+  width: 25px;
+}
+
+.shipmentRadioButton {
+  margin: 15px 0;
+  font-size: 18px;
+}
+
+.shipment-2 {
+  margin-left: 10px;
+  font-weight: bolder;
+} 

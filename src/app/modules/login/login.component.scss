@@ -1,115 +1,5 @@
 @use '../../../variables.scss' as variables;
 
-// Modern Input Styles
-.modern-input {
-  width: 100%;
-  padding: 16px 20px;
-  font-size: 16px;
-  font-weight: 500;
-  border: 2px solid #e1e8ed;
-  border-radius: 12px;
-  background: #ffffff;
-  color: #2c3e50;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  position: relative;
-  
-  &:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    transform: translateY(-1px);
-  }
-  
-  &:hover {
-    border-color: #bdc3c7;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  &::placeholder {
-    color: #95a5a6;
-    font-weight: 400;
-  }
-  
-  &.error {
-    border-color: #e74c3c;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
-    
-    &:focus {
-      border-color: #c0392b;
-      box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
-    }
-  }
-}
-
-// Modern Button Styles
-.modern-button {
-  padding: 14px 28px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    transition: left 0.3s ease;
-    z-index: -1;
-  }
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    
-    &::before {
-      left: 0;
-    }
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-  
-  &.primary {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-    
-    &::before {
-      background: linear-gradient(45deg, #5a6fd8, #6a4190);
-    }
-  }
-  
-  &.secondary {
-    background: linear-gradient(45deg, #95a5a6, #7f8c8d);
-    color: white;
-    
-    &::before {
-      background: linear-gradient(45deg, #8a9a9b, #6f7c7d);
-    }
-  }
-  
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-    
-    &:hover {
-      transform: none;
-      box-shadow: none;
-    }
-  }
-}
-
 .login-container {
   min-height: 100vh;
   display: flex;
@@ -138,15 +28,22 @@
 }
 
 .login-card {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
   padding: 40px;
-  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   max-width: 450px;
+  width: 100%;
   position: relative;
   z-index: 1;
-  border-top: 4px solid #667eea;
+  
+  @media (max-width: 768px) {
+    padding: 30px;
+    margin: 10px;
+    max-width: 380px;
+  }
 }
 
 .login-header {
@@ -158,11 +55,17 @@
     width: 56px;
     height: 56px;
     color: #667eea;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     background: linear-gradient(45deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    
+    @media (max-width: 768px) {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+    }
   }
   
   h1 {
@@ -170,16 +73,16 @@
     font-weight: 700;
     color: #2c3e50;
     margin-bottom: 10px;
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    
+    @media (max-width: 768px) {
+      font-size: 1.9rem;
+    }
   }
   
   p {
     color: #7f8c8d;
-    margin: 0;
     font-size: 1rem;
+    margin: 0;
     font-weight: 500;
   }
 }
@@ -187,20 +90,30 @@
 .login-tabs {
   ::ng-deep .mat-mdc-tab-group {
     .mat-mdc-tab-header {
-      border-bottom: 2px solid #ecf0f1;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      margin-bottom: 25px;
       
-      .mat-mdc-tab-label {
-        font-weight: 600;
-        color: #7f8c8d;
-        transition: all 0.3s ease;
-        
-        &.mat-mdc-tab-label-active {
-          color: #667eea;
+      .mat-mdc-tab-label-container {
+        .mat-mdc-tab-label {
+          color: #7f8c8d;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          font-size: 0.9rem;
+          
+          &.mat-mdc-tab-label-active {
+            color: #667eea;
+          }
         }
       }
       
+      .mat-mdc-tab-header-pagination-chevron {
+        color: #7f8c8d;
+      }
+      
       .mat-mdc-ink-bar {
-        background-color: #667eea;
+        background: linear-gradient(45deg, #667eea, #764ba2);
         height: 3px;
         border-radius: 2px;
       }
@@ -209,58 +122,13 @@
 }
 
 .tab-content {
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 .auth-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  
-  .input-wrapper {
-    position: relative;
-    
-    .input-icon {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #95a5a6;
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
-      pointer-events: none;
-      transition: color 0.3s ease;
-    }
-    
-    .modern-input:focus + .input-icon {
-      color: #667eea;
-    }
-    
-    .modern-input.error + .input-icon {
-      color: #e74c3c;
-    }
-  }
-  
-  .error-message {
-    background: linear-gradient(45deg, #fee, #fdd);
-    color: #c0392b;
-    padding: 14px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    border: 2px solid #fadbd8;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 500;
-    
-    mat-icon {
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
-      color: #e74c3c;
-    }
-  }
   
   .form-actions {
     display: flex;
@@ -306,39 +174,7 @@
     padding: 15px;
   }
   
-  .login-card {
-    padding: 30px;
-    margin: 10px;
-    max-width: 380px;
-  }
-  
-  .login-header {
-    h1 {
-      font-size: 1.9rem;
-    }
-    
-    .login-icon {
-      font-size: 48px;
-      width: 48px;
-      height: 48px;
-    }
-  }
-  
   .auth-form {
-    .input-wrapper {
-      .modern-input {
-        padding: 14px 16px;
-        font-size: 15px;
-      }
-      
-      .input-icon {
-        right: 14px;
-        font-size: 18px;
-        width: 18px;
-        height: 18px;
-      }
-    }
-    
     .form-actions {
       .auth-button {
         padding: 14px;

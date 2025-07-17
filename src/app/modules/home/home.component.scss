@@ -6,7 +6,7 @@
 }
 
 .hero-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #d63031 0%, #f39c12 100%);
   padding: 80px 0;
   text-align: center;
   color: white;
@@ -66,15 +66,17 @@
       font-size: 1.1rem;
       font-weight: 600;
       border-radius: 25px;
-      background: linear-gradient(45deg, #f39c12, #e67e22);
+      background: linear-gradient(45deg, #8b0000, #d63031);
       color: white;
       border: none;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+      box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
       
       &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+        box-shadow: 0 6px 20px rgba(139, 0, 0, 0.5);
+        background: linear-gradient(45deg, #660000, #8b0000);
       }
       
       mat-icon {
@@ -89,12 +91,15 @@
       border-radius: 25px;
       color: white;
       border: 2px solid white;
+      background: rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
       
       &:hover {
         background: white;
-        color: #667eea;
+        color: #d63031;
         transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
       }
       
       mat-icon {
@@ -163,7 +168,7 @@
       transform: translateX(-50%);
       width: 80px;
       height: 4px;
-      background: linear-gradient(45deg, #667eea, #764ba2);
+      background: linear-gradient(45deg, #d63031, #f39c12);
       border-radius: 2px;
     }
   }
@@ -195,7 +200,7 @@
       font-size: 3rem;
       width: 3rem;
       height: 3rem;
-      color: #667eea;
+      color: #d63031;
       margin-bottom: 20px;
     }
     
@@ -241,7 +246,7 @@
         transform: translateX(-50%);
         width: 80px;
         height: 4px;
-        background: linear-gradient(45deg, #667eea, #764ba2);
+        background: linear-gradient(45deg, #d63031, #f39c12);
         border-radius: 2px;
       }
     }
@@ -371,7 +376,7 @@
         .product-price {
           font-size: 1.4rem;
           font-weight: 700;
-          color: #e67e22;
+          color: #d63031;
         }
       }
       
@@ -391,11 +396,11 @@
           }
           
           &:first-child {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #8b0000, #d63031);
           }
           
           &:last-child {
-            background: linear-gradient(45deg, #f39c12, #e67e22);
+            background: linear-gradient(45deg, #d63031, #f39c12);
           }
         }
       }
@@ -435,7 +440,7 @@
       font-size: 3rem;
       width: 3rem;
       height: 3rem;
-      color: #667eea;
+      color: #d63031;
     }
   }
   
@@ -454,7 +459,7 @@
     }
     
     button {
-      background: linear-gradient(45deg, #667eea, #764ba2);
+      background: linear-gradient(45deg, #8b0000, #d63031);
       color: white;
       border-radius: 8px;
       padding: 12px 24px;
@@ -465,7 +470,7 @@
       }
       
       &:hover {
-        background: linear-gradient(45deg, #764ba2, #667eea);
+        background: linear-gradient(45deg, #660000, #8b0000);
       }
     }
   }
@@ -498,7 +503,7 @@
       transform: translateX(-50%);
       width: 80px;
       height: 4px;
-      background: linear-gradient(45deg, #667eea, #764ba2);
+      background: linear-gradient(45deg, #d63031, #f39c12);
       border-radius: 2px;
     }
   }
@@ -530,7 +535,7 @@
       
       .quote-icon {
         font-size: 2rem;
-        color: #667eea;
+        color: #d63031;
         margin-bottom: 15px;
       }
       
@@ -573,7 +578,7 @@
 // Newsletter Section
 .newsletter-section {
   padding: 80px 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #d63031 0%, #f39c12 100%);
   color: white;
   
   .container {
@@ -652,7 +657,7 @@
       }
       
       .subscribe-btn {
-        background: linear-gradient(45deg, #f39c12, #e67e22);
+        background: linear-gradient(45deg, #8b0000, #d63031);
         color: white;
         padding: 12px 24px;
         border-radius: 8px;
@@ -667,7 +672,7 @@
         }
         
         &:hover {
-          background: linear-gradient(45deg, #e67e22, #f39c12);
+          background: linear-gradient(45deg, #660000, #8b0000);
         }
       }
     }

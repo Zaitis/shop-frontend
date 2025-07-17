@@ -1,39 +1,16 @@
-// Custom theme configuration for the shop application
-@use '@angular/material' as mat;
-
-// Include core styles
-@include mat.core();
-
-// Define color palettes
-$primary: mat.define-palette(mat.$blue-palette);
-$accent: mat.define-palette(mat.$pink-palette);
-$warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme
-$theme: mat.define-light-theme((
-  color: (
-    primary: $primary,
-    accent: $accent,
-    warn: $warn,
-  )
-));
-
-// Include theme styles for Angular Material components
-@include mat.all-component-themes($theme);
-
 // Custom CSS variables for consistent theming
 :root {
-  --primary-color: #2196f3;
-  --primary-light: #bbdefb;
-  --primary-dark: #1976d2;
+  --primary-color: #d63031;
+  --primary-light: #ff7675;
+  --primary-dark: #c0392b;
   
-  --accent-color: #e91e63;
-  --accent-light: #f8bbd9;
-  --accent-dark: #c2185b;
+  --accent-color: #f39c12;
+  --accent-light: #fdcb6e;
+  --accent-dark: #e67e22;
   
-  --warn-color: #f44336;
-  --warn-light: #ffcdd2;
-  --warn-dark: #d32f2f;
+  --warn-color: #e74c3c;
+  --warn-light: #fab1a0;
+  --warn-dark: #c0392b;
   
   --background-color: #fafafa;
   --surface-color: #ffffff;

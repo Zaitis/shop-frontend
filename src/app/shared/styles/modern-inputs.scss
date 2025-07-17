@@ -17,8 +17,8 @@
   
   &:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #d63031;
+    box-shadow: 0 0 0 3px rgba(214, 48, 49, 0.1);
     transform: translateY(-1px);
   }
   
@@ -70,8 +70,8 @@
     }
     
     &.mat-focused {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      border-color: #d63031;
+      box-shadow: 0 0 0 3px rgba(214, 48, 49, 0.1);
       transform: translateY(-1px);
     }
     
@@ -107,7 +107,7 @@
   }
   
   &.mat-focused .mat-mdc-form-field-label {
-    color: #667eea;
+    color: #d63031;
   }
 }
 
@@ -150,11 +150,11 @@
   }
   
   &.primary {
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: linear-gradient(45deg, #d63031, #f39c12);
     color: white;
     
     &::before {
-      background: linear-gradient(45deg, #5a6fd8, #6a4190);
+      background: linear-gradient(45deg, #c0392b, #e67e22);
     }
   }
   
@@ -222,8 +222,8 @@
   
   &:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #d63031;
+    box-shadow: 0 0 0 3px rgba(214, 48, 49, 0.1);
     transform: translateY(-1px);
   }
   
@@ -250,8 +250,8 @@
   
   &:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #d63031;
+    box-shadow: 0 0 0 3px rgba(214, 48, 49, 0.1);
     transform: translateY(-1px);
   }
   
@@ -290,6 +290,124 @@
     font-size: 12px;
     margin-top: 4px;
   }
+  
+  .input-wrapper {
+    position: relative;
+    
+    .input-icon {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #95a5a6;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+      transition: color 0.3s ease;
+    }
+    
+    .modern-input:focus + .input-icon,
+    .modern-select:focus + .input-icon {
+      color: #d63031;
+    }
+    
+    .modern-input.error + .input-icon {
+      color: #e74c3c;
+    }
+  }
+}
+
+// Error Message Styles
+.error-message {
+  background: linear-gradient(45deg, #fee, #fdd);
+  color: #c0392b;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  border: 2px solid #fadbd8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: #e74c3c;
+  }
+}
+
+// Container Styles
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
+}
+
+// Card Styles
+.modern-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Loading and Empty States
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  
+  p {
+    margin-top: 20px;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+}
+
+.empty-state {
+  background: white;
+  border-radius: 16px;
+  padding: 60px 20px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  
+  .empty-content {
+    max-width: 400px;
+    margin: 0 auto;
+    
+    .empty-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      color: #bdc3c7;
+      margin-bottom: 20px;
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    
+    p {
+      color: #7f8c8d;
+      margin-bottom: 25px;
+    }
+  }
 }
 
 // Responsive Design
@@ -304,6 +422,14 @@
   .modern-button {
     padding: 12px 24px;
     font-size: 15px;
+  }
+  
+  .page-container {
+    padding: 15px;
+  }
+  
+  .modern-card {
+    padding: 20px;
   }
 }
 

@@ -30,7 +30,7 @@
           left: 0;
           width: 30px;
           height: 2px;
-          background: linear-gradient(90deg, #f39c12, #e67e22);
+          background: linear-gradient(90deg, #d63031, #f39c12);
           border-radius: 2px;
         }
       }
@@ -50,7 +50,7 @@
             transition: all 0.3s ease;
             
             &:hover {
-              color: #f39c12;
+              color: #d63031;
               padding-left: 6px;
             }
           }
@@ -75,9 +75,9 @@
           transition: all 0.3s ease;
           
           &:hover {
-            background: linear-gradient(45deg, #f39c12, #e67e22);
+            background: linear-gradient(45deg, #d63031, #f39c12);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+            box-shadow: 0 4px 12px rgba(214, 48, 49, 0.3);
           }
           
           mat-icon {
@@ -110,13 +110,13 @@
         font-size: 12px;
         
         .creator-link {
-          color: #f39c12;
+          color: #d63031;
           text-decoration: none;
           font-weight: 600;
           transition: all 0.3s ease;
           
           &:hover {
-            color: #e67e22;
+            color: #f39c12;
             text-decoration: underline;
           }
         }
@@ -134,7 +134,7 @@
         transition: all 0.3s ease;
         
         &:hover {
-          color: #f39c12;
+          color: #d63031;
         }
       }
     }

@@ -2,6 +2,14 @@
 @use 'variables.scss' as variables;
 @use '@angular/material' as mat;
 
+// Import shared styles
+@use 'app/shared/styles/modern-inputs';
+@use 'app/shared/styles/layout';
+@use 'app/shared/styles/flex-utilities';
+@use 'app/shared/styles/ui-patterns';
+@use 'app/shared/styles/table-styles';
+@use 'app/shared/styles/theme';
+
 html, body { 
   height: 100%; 
   margin: 0; 
