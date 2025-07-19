@@ -1,155 +1,295 @@
-<h1>Order</h1>
-<div *ngIf="orderSummary" class="orderSummary">
-    <div>New order number: {{orderSummary.id}}</div>
-    <div>Order date: {{orderSummary.placeDate |date: 'yyyy-MM-dd HH:mm'}}</div>
-    <div>Status: {{getStatus(orderSummary.status)}}</div>
-    <div>Value: {{orderSummary.grossValue}}</div>
-    <div *ngIf="orderSummary.payment.note">Payment: <br />
-         <span class="paymentNote" [innerHTML]="orderSummary.payment.note | replace: '\n': '\<br>'"></span>
+<div class="order-container">
+  <!-- Order Summary Display -->
+  <div *ngIf="orderSummary" class="order-summary">
+    <div class="summary-card">
+      <h1 class="summary-title">
+        <mat-icon>receipt</mat-icon>
+        Order Confirmation
+      </h1>
+      
+      <div class="summary-details">
+        <div class="detail-row">
+          <span class="detail-label">Order Number:</span>
+          <span class="detail-value">{{orderSummary.id}}</span>
         </div>
-        <div class="loginInfo" *ngIf="isLoggedIn">Status of your order you can follow on your  <a routerLink="/login">profile.</a></div>
-</div>
-
-
-<div *ngIf="!orderSummary && cartSummary && cartSummary.items.length <=0">
-    Shop bucket is empty.
-</div>
-
-<div *ngIf="!orderSummary && cartSummary && cartSummary.items.length >0">
-    <form [formGroup]="formGroup" (submit)="submit()">
-        <div fxLayout ="row" fxLayoutGap="15px">
-        <div fxLayout="column" class="orderForm">
-            <mat-form-field appearance="fill">
-                <mat-label>Name</mat-label>
-                <input matInput placeholder="Podaj imię" formControlName="firstname">
-                <div *ngIf="firstname?.invalid && (firstname?.dirty || firstname?.touched)" class="errorMessage">
-                    <div *ngIf="firstname?.errors?.['required']">
-                        Name is required
-                    </div>
-                </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Surname</mat-label>
-                <input matInput placeholder="Podaj nazwisko" formControlName="lastname">
-                <div *ngIf="lastname?.invalid && (lastname?.dirty || lastname?.touched)" class="errorMessage">
-                    <div *ngIf="lastname?.errors?.['required']">
-                        Surname is required
-                    </div>
-                </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Street</mat-label>
-                <input matInput placeholder="Podaj ulicę" formControlName="street">
-                <div *ngIf="street?.invalid && (street?.dirty || street?.touched)" class="errorMessage">
-                    <div *ngIf="street?.errors?.['required']">
-                        Street is required
-                    </div>
-                </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Zipcode</mat-label>
-                <input matInput placeholder="Podaj kodpocztowy" formControlName="zipcode">
-                <div *ngIf="zipcode?.invalid && (zipcode?.dirty || zipcode?.touched)" class="errorMessage">
-                    <div *ngIf="zipcode?.errors?.['required']">
-                        Zipcode is required
-                    </div>
-                </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>City</mat-label>
-                <input matInput placeholder="Podaj miasto" formControlName="city">
-                <div *ngIf="city?.invalid && (city?.dirty || city?.touched)" class="errorMessage">
-                    <div *ngIf="city?.errors?.['required']">
-                        City is required
-                    </div>
-                </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Email</mat-label>
-                <input type="email" matInput placeholder="Podaj email" formControlName="email">
-                <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="errorMessage">
-                    <div *ngIf="email?.errors?.['required']">
-                        Email is required
-                    </div>
-                    <div *ngIf="email?.errors?.['email']">
-                        Your email is not correct.
-                    </div>
-                </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Phone</mat-label>
-                <input matInput placeholder="Podaj telefon" formControlName="phone">
-                <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="errorMessage">
-                    <div *ngIf="phone?.errors?.['required']">
-                        Phone is required
-                    </div>
-                </div>
-            </mat-form-field>
+        <div class="detail-row">
+          <span class="detail-label">Order Date:</span>
+          <span class="detail-value">{{orderSummary.placeDate | date: 'yyyy-MM-dd HH:mm'}}</span>
         </div>
-        <div class="loginInfo" *ngIf="!isLoggedIn"><a routerLink="/login">Sign In</a>, if you want to track the parcel</div>
+        <div class="detail-row">
+          <span class="detail-label">Status:</span>
+          <span class="detail-value status-badge">{{getStatus(orderSummary.status)}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Total Value:</span>
+          <span class="detail-value total-value">{{orderSummary.grossValue}}</span>
         </div>
         
-        <div>
-            <div fxLayoutGap="25px grid">
-                <div>
-                    <h2>You order:</h2>
-                    <div fxLayout="row" fxLayoutAlign="space-between start" class="card-hrow">
-                        <div class="cart-hcol-1">Image</div>
-                        <div class="cart-hcol-2">Name</div>
-                        <div class="cart-hcol-3">Quantity</div>
-                        <div class="cart-hcol-4">Value</div>
-                    </div>
-                    <div *ngFor="let item of cartSummary.items; let i = index" class="card-row">
-                        <div fxLayout="row" fxLayoutAlign="space-between start">
-                            <div class="cart-col-1">
-                                <a routerLink="{{'/products/' + item.product?.slug}}">
-                                    <img *ngIf="!item.product?.image" src="/assets/image-placeholder.png" width="100">
-                                    <img *ngIf="item.product?.image"
-                                        src="{{'/api/data/productImage/' + item.product?.image}}" width="100">
-                                </a>
-                            </div>
-                            <div class="cart-col-2">{{item.product?.name}}</div>
-                            <div class="cart-col-3">{{item.quantity}}</div>
-                            <div class="cart-col-4">{{item.lineValue}}</div>
-                        </div>
-                    </div>
-                    <div fxLayoutAlign="end start">
-                        <div class="summary"> Value: </div>
-                        <div class="summary"> <b>{{cartSummary?.summary?.grossValue}}</b></div>
-                    </div>
-                    <div>
-                        <h2>Delivery:</h2>
-                        <mat-radio-group fxLayout="column" formControlName="shipment">
-                            <mat-radio-button class="shipmentRadioButton" *ngFor="let shipmet of initData?.shipments"
-                             [value]="shipmet" [checked]="shipmet.defaultShipment">
-                                <span class="shipment-1">{{shipmet.name}} </span>
-                                <span class="shipment-2">{{shipmet.price}} PLN</span>
-                        </mat-radio-button>
-
-                        </mat-radio-group>
-                    </div>
-                    <div>
-                        <h2>Payments</h2>
-                        <mat-radio-group fxLayout="column" formControlName="payment">
-                            <mat-radio-button class="paymentRadioButton" *ngFor="let payment of initData?.payments"
-                             [value]="payment" [checked]="payment.defaultPayment">{{payment.name}}</mat-radio-button>
-
-                        </mat-radio-group>
-                    </div>
-                    <div fxLayoutAlign="end">
-                        <div class="orderTotal">Full cost:
-                            <span class="orderTotalValue">{{cartSummary?.summary?.grossValue + shipment?.value.price}}</span>
-                        </div>
-                    </div>
-                    <div *ngIf="errorMessage" class="errorMessage" fxLayoutAlign="end start">
-                            It something wrong! Try again later.
-                    </div>
-                    <div fxLayoutAlign="end start">
-                        <button mat-flat-button color="accent" class="orderButton">Buy It</button>
-                    </div>
-                </div>
-            </div>
+        <div *ngIf="orderSummary.payment.note" class="payment-note">
+          <span class="detail-label">Payment Note:</span>
+          <div class="note-content" [innerHTML]="orderSummary.payment.note | replace: '\n': '<br>'"></div>
         </div>
+        
+        <div class="login-info" *ngIf="isLoggedIn">
+          <mat-icon>account_circle</mat-icon>
+          Track your order status on your <a routerLink="/login">profile</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty Cart Message -->
+  <div *ngIf="!orderSummary && cartSummary && cartSummary.items.length <= 0" class="empty-cart">
+    <div class="empty-content">
+      <mat-icon class="empty-icon">shopping_cart</mat-icon>
+      <h2>Your cart is empty</h2>
+      <p>Add some products to your cart before placing an order.</p>
+      <button mat-raised-button color="primary" routerLink="/products" class="continue-shopping-btn">
+        <mat-icon>shopping_bag</mat-icon>
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+
+  <!-- Order Form -->
+  <div *ngIf="!orderSummary && cartSummary && cartSummary.items.length > 0" class="order-form">
+    <form [formGroup]="formGroup" (submit)="submit()">
+      <div class="form-container">
+        <!-- Customer Information -->
+        <div class="form-section">
+          <h2 class="section-title">
+            <mat-icon>person</mat-icon>
+            Customer Information
+          </h2>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <div class="input-wrapper">
+                <input 
+                  type="text" 
+                  formControlName="firstname" 
+                  placeholder="Enter your first name"
+                  class="modern-input"
+                  [class.error]="firstname?.invalid && (firstname?.dirty || firstname?.touched)">
+                <mat-icon class="input-icon">person</mat-icon>
+              </div>
+              <div *ngIf="firstname?.invalid && (firstname?.dirty || firstname?.touched)" class="form-error">
+                <span *ngIf="firstname?.errors?.['required']">First name is required</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <div class="input-wrapper">
+                <input 
+                  type="text" 
+                  formControlName="lastname" 
+                  placeholder="Enter your last name"
+                  class="modern-input"
+                  [class.error]="lastname?.invalid && (lastname?.dirty || lastname?.touched)">
+                <mat-icon class="input-icon">person</mat-icon>
+              </div>
+              <div *ngIf="lastname?.invalid && (lastname?.dirty || lastname?.touched)" class="form-error">
+                <span *ngIf="lastname?.errors?.['required']">Last name is required</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <div class="input-wrapper">
+                <input 
+                  type="email" 
+                  formControlName="email" 
+                  placeholder="Enter your email"
+                  class="modern-input"
+                  [class.error]="email?.invalid && (email?.dirty || email?.touched)">
+                <mat-icon class="input-icon">email</mat-icon>
+              </div>
+              <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="form-error">
+                <span *ngIf="email?.errors?.['required']">Email is required</span>
+                <span *ngIf="email?.errors?.['email']">Please enter a valid email</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <div class="input-wrapper">
+                <input 
+                  type="tel" 
+                  formControlName="phone" 
+                  placeholder="Enter your phone number"
+                  class="modern-input"
+                  [class.error]="phone?.invalid && (phone?.dirty || phone?.touched)">
+                <mat-icon class="input-icon">phone</mat-icon>
+              </div>
+              <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="form-error">
+                <span *ngIf="phone?.errors?.['required']">Phone number is required</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Street Address</label>
+              <div class="input-wrapper">
+                <input 
+                  type="text" 
+                  formControlName="street" 
+                  placeholder="Enter your street address"
+                  class="modern-input"
+                  [class.error]="street?.invalid && (street?.dirty || street?.touched)">
+                <mat-icon class="input-icon">home</mat-icon>
+              </div>
+              <div *ngIf="street?.invalid && (street?.dirty || street?.touched)" class="form-error">
+                <span *ngIf="street?.errors?.['required']">Street address is required</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">City</label>
+              <div class="input-wrapper">
+                <input 
+                  type="text" 
+                  formControlName="city" 
+                  placeholder="Enter your city"
+                  class="modern-input"
+                  [class.error]="city?.invalid && (city?.dirty || city?.touched)">
+                <mat-icon class="input-icon">location_city</mat-icon>
+              </div>
+              <div *ngIf="city?.invalid && (city?.dirty || city?.touched)" class="form-error">
+                <span *ngIf="city?.errors?.['required']">City is required</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Zip Code</label>
+              <div class="input-wrapper">
+                <input 
+                  type="text" 
+                  formControlName="zipcode" 
+                  placeholder="Enter your zip code"
+                  class="modern-input"
+                  [class.error]="zipcode?.invalid && (zipcode?.dirty || zipcode?.touched)">
+                <mat-icon class="input-icon">markunread_mailbox</mat-icon>
+              </div>
+              <div *ngIf="zipcode?.invalid && (zipcode?.dirty || zipcode?.touched)" class="form-error">
+                <span *ngIf="zipcode?.errors?.['required']">Zip code is required</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="login-info" *ngIf="!isLoggedIn">
+            <mat-icon>info</mat-icon>
+            <a routerLink="/login">Sign In</a> to track your order status
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary-section">
+          <h2 class="section-title">
+            <mat-icon>shopping_cart</mat-icon>
+            Order Summary
+          </h2>
+          
+          <div class="order-items">
+            <div class="items-header">
+              <span class="header-image">Image</span>
+              <span class="header-name">Product</span>
+              <span class="header-quantity">Qty</span>
+              <span class="header-price">Price</span>
+            </div>
+            
+            <div *ngFor="let item of cartSummary.items; let i = index" class="order-item">
+              <div class="item-image">
+                <a routerLink="{{'/products/' + item.product?.slug}}">
+                  <img *ngIf="!item.product?.image" src="/assets/image-placeholder.png" alt="Product">
+                  <img *ngIf="item.product?.image" src="{{'/api/data/productImage/' + item.product?.image}}" alt="Product">
+                </a>
+              </div>
+              <div class="item-name">
+                <a routerLink="{{'/products/' + item.product?.slug}}">{{item.product?.name}}</a>
+              </div>
+              <div class="item-quantity">{{item.quantity}}</div>
+              <div class="item-price">{{item.lineValue}}</div>
+            </div>
+          </div>
+
+          <div class="order-total">
+            <span class="total-label">Subtotal:</span>
+            <span class="total-value">{{cartSummary?.summary?.grossValue}}</span>
+          </div>
+        </div>
+
+        <!-- Delivery Options -->
+        <div class="delivery-section">
+          <h2 class="section-title">
+            <mat-icon>local_shipping</mat-icon>
+            Delivery Options
+          </h2>
+          
+          <div class="radio-group">
+            <div *ngFor="let shipment of initData?.shipments" class="radio-button">
+              <input 
+                type="radio" 
+                [id]="'shipment-' + shipment.id"
+                [value]="shipment" 
+                [checked]="shipment.defaultShipment"
+                formControlName="shipment"
+                class="radio-input">
+              <label [for]="'shipment-' + shipment.id" class="radio-label">
+                <div class="radio-content">
+                  <span class="radio-name">{{shipment.name}}</span>
+                  <span class="radio-price">{{shipment.price}} PLN</span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Options -->
+        <div class="payment-section">
+          <h2 class="section-title">
+            <mat-icon>payment</mat-icon>
+            Payment Method
+          </h2>
+          
+          <div class="radio-group">
+            <div *ngFor="let payment of initData?.payments" class="radio-button">
+              <input 
+                type="radio" 
+                [id]="'payment-' + payment.id"
+                [value]="payment" 
+                [checked]="payment.defaultPayment"
+                formControlName="payment"
+                class="radio-input">
+              <label [for]="'payment-' + payment.id" class="radio-label">
+                <span class="radio-name">{{payment.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Final Total -->
+        <div class="final-total">
+          <div class="total-row">
+            <span class="total-label">Total Cost:</span>
+            <span class="total-amount">{{cartSummary?.summary?.grossValue + shipment?.value?.price}}</span>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="error-message">
+          <mat-icon>error</mat-icon>
+          <span>Something went wrong! Please try again later.</span>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="submit-section">
+          <button mat-raised-button color="primary" type="submit" class="submit-btn">
+            <mat-icon>shopping_cart_checkout</mat-icon>
+            Place Order
+          </button>
+        </div>
+      </div>
     </form>
-    
+  </div>
 </div>

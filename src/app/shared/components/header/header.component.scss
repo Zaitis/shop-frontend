@@ -13,34 +13,42 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
-  max-width: 1200px;
+  padding: 12px 20px;
+  max-width: 1400px;
   margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    padding: 10px 16px;
+    margin-left: 50px; // Space for hamburger menu
+  }
 }
 
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: white;
   
-  .logo-icon {
-    font-size: 32px;
-    width: 32px;
-    height: 32px;
-    color: #f39c12;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
   }
   
-  .logo-text {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(45deg, #fff, #f39c12);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .logo-image {
+    height: 50px;
+    width: auto;
+    max-width: 200px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    border-radius: 8px;
+    
+    @media (max-width: 768px) {
+      height: 40px;
+      max-width: 150px;
+    }
   }
 }
 
@@ -49,17 +57,26 @@
   align-items: center;
   gap: 12px;
   
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
+  
   button {
     color: white;
     font-weight: 600;
     border-radius: 25px;
-    padding: 10px 20px;
+    padding: 8px 16px;
     transition: all 0.3s ease;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.4);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     font-size: 14px;
+    
+    @media (max-width: 768px) {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
     
     &.active {
       background: linear-gradient(45deg, #8b0000, #d63031);
@@ -80,9 +97,16 @@
     
     mat-icon {
       margin-right: 6px;
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      
+      @media (max-width: 768px) {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+      }
     }
   }
 }
@@ -90,7 +114,11 @@
 .actions-section {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  
+  @media (max-width: 768px) {
+    gap: 6px;
+  }
   
   .cart-button {
     color: white;
@@ -124,9 +152,13 @@
     }
     
     mat-icon {
-      font-size: 24px;
+      font-size: 20px;
       position: relative;
       z-index: 1;
+      
+      @media (max-width: 768px) {
+        font-size: 18px;
+      }
     }
   }
   
@@ -164,48 +196,29 @@
     mat-icon {
       position: relative;
       z-index: 1;
-    }
-  }
-}
-
-// Responsive design
-@media (max-width: 768px) {
-  .header-container {
-    padding: 12px 16px;
-    margin-left: 50px;
-  }
-  
-  .navigation {
-    gap: 8px;
-    
-    button {
-      padding: 8px 16px;
-      font-size: 13px;
+      font-size: 20px;
       
-      mat-icon {
+      @media (max-width: 768px) {
         font-size: 18px;
-        width: 18px;
-        height: 18px;
-        margin-right: 4px;
       }
     }
   }
-  
-  .logo-section {
-    .logo-text {
-      font-size: 22px;
-    }
-    
-    .logo-icon {
-      font-size: 28px;
-      width: 28px;
-      height: 28px;
-    }
-  }
 }
 
+// Responsive breakpoints
 @media (max-width: 480px) {
   .navigation {
-    display: none; // Hide on very small screens
+    display: none; // Hide navigation on very small screens
+  }
+  
+  .header-container {
+    justify-content: space-between;
+  }
+  
+  .logo-section {
+    .logo-image {
+      height: 35px;
+      max-width: 120px;
+    }
   }
 }

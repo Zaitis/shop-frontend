@@ -8,18 +8,18 @@
 <!-- Mobile overlay -->
 <div class="mobile-overlay" *ngIf="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
 
-<div class="flex-row flex-1">
-    <!-- Desktop sidebar -->
-    <div class="flex-20 desktop-sidebar">
-        <app-sidebar class="flex-1"></app-sidebar>
+<div class="main-container">
+    <!-- Desktop sidebar - now below header -->
+    <div class="desktop-sidebar">
+        <app-sidebar></app-sidebar>
     </div>
     
     <!-- Mobile sidebar overlay -->
     <div class="mobile-sidebar" [class.open]="isMobileMenuOpen">
-        <app-sidebar class="flex-1"></app-sidebar>
+        <app-sidebar></app-sidebar>
     </div>
     
-    <div class="flex-80 content">
+    <div class="main-content">
         <router-outlet></router-outlet>
     </div>
 </div>

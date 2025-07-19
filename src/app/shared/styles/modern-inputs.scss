@@ -63,6 +63,7 @@
     border: 2px solid #e1e8ed;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 0;
     
     &:hover {
       border-color: #bdc3c7;
@@ -77,6 +78,7 @@
     
     .mat-mdc-form-field-flex {
       padding: 16px 20px;
+      min-height: auto;
       
       .mat-mdc-form-field-infix {
         padding: 0;
@@ -86,11 +88,17 @@
           font-size: 16px;
           font-weight: 500;
           color: #2c3e50;
+          padding: 0;
           
           &::placeholder {
             color: #95a5a6;
             font-weight: 400;
           }
+        }
+        
+        textarea.mat-mdc-input-element {
+          min-height: 120px;
+          resize: vertical;
         }
       }
     }
@@ -98,16 +106,37 @@
     .mat-mdc-form-field-subscript-wrapper {
       display: none;
     }
+    
+    .mat-mdc-form-field-icon-suffix {
+      padding-right: 0;
+    }
   }
   
   .mat-mdc-form-field-label {
     color: #7f8c8d;
     font-weight: 600;
     font-size: 14px;
+    transform: translateY(-1.5em) scale(0.75);
+    transform-origin: left top;
+    
+    &.mat-mdc-floating-label.mat-mdc-form-field-floating-label {
+      transform: translateY(-1.5em) scale(0.75);
+    }
   }
   
   &.mat-focused .mat-mdc-form-field-label {
     color: #d63031;
+  }
+  
+  .mat-mdc-form-field-error-wrapper {
+    padding: 0;
+    margin-top: 8px;
+    
+    .mat-mdc-form-field-error {
+      color: #e74c3c;
+      font-size: 12px;
+      font-weight: 500;
+    }
   }
 }
 
@@ -209,7 +238,7 @@
 // Modern Select Styles
 .modern-select {
   width: 100%;
-  padding: 16px 20px;
+  padding: 12px 20px;
   font-size: 16px;
   font-weight: 500;
   border: 2px solid #e1e8ed;
@@ -363,50 +392,36 @@
 // Loading and Empty States
 .loading-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 60px 20px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  min-height: 200px;
   
-  p {
-    margin-top: 20px;
-    color: #7f8c8d;
-    font-size: 1.1rem;
+  .loading-spinner {
+    color: #d63031;
   }
 }
 
 .empty-state {
-  background: white;
-  border-radius: 16px;
-  padding: 60px 20px;
   text-align: center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 40px 20px;
   
-  .empty-content {
-    max-width: 400px;
-    margin: 0 auto;
-    
-    .empty-icon {
-      font-size: 64px;
-      width: 64px;
-      height: 64px;
-      color: #bdc3c7;
-      margin-bottom: 20px;
-    }
-    
-    h3 {
-      font-size: 1.5rem;
-      color: #2c3e50;
-      margin-bottom: 10px;
-    }
-    
-    p {
-      color: #7f8c8d;
-      margin-bottom: 25px;
-    }
+  .empty-icon {
+    font-size: 4rem;
+    width: 4rem;
+    height: 4rem;
+    color: #bdc3c7;
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    color: #7f8c8d;
+    margin: 0;
   }
 }
 
@@ -415,34 +430,15 @@
   .modern-input,
   .modern-select,
   .modern-textarea {
-    padding: 14px 16px;
-    font-size: 15px;
+    font-size: 16px; // Prevent zoom on iOS
   }
   
   .modern-button {
     padding: 12px 24px;
-    font-size: 15px;
-  }
-  
-  .page-container {
-    padding: 15px;
-  }
-  
-  .modern-card {
-    padding: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .modern-input,
-  .modern-select,
-  .modern-textarea {
-    padding: 12px 14px;
     font-size: 14px;
   }
   
-  .modern-button {
-    padding: 10px 20px;
-    font-size: 14px;
+  .form-group {
+    margin-bottom: 20px;
   }
 } 

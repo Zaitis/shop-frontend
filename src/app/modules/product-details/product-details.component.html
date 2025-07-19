@@ -1,61 +1,136 @@
-<div fxLayout="column" *ngIf="product">
-    <div fxLayout="row" fxFlex fxLayoutGap="20">
-        <div>
-            <img *ngIf="!product.image" src="/assets/image-placeholder.png" width="350">
-            <img *ngIf="product.image" src="{{'/api/data/productImage/' + product.image}}" width="350">
-        </div>
-        <div fxLayout="column" fxFlex>
-            <h1>{{product.name}}</h1>
-            <small>{{product.category}}</small>
-            <div class="description">
-                {{product.description}}
-            </div>
-            <div class="fulldescription" *ngIf="product.fullDescription">
-                {{product.fullDescription}}
-            </div>
-            <div fxLayout="row" fxFlexAlign="end">
-            </div>
-            <span class="price">{{product.price}}{{product.currency}}</span>
-            <button mat-flat-button color="warn" routerLink="/cart" [queryParams]="{productId: product.id}">add card</button>
-        </div>
+<div class="product-details-container" *ngIf="product">
+  <div class="product-content">
+    <!-- Product Images Section -->
+    <div class="product-images">
+      <div class="main-image">
+        <img *ngIf="!product.image" src="/assets/image-placeholder.png" alt="{{product.name}}">
+        <img *ngIf="product.image" src="{{'/api/data/productImage/' + product.image}}" alt="{{product.name}}">
+      </div>
     </div>
-    <div>
-        <h2>Yours Opinions</h2>
-        <div>
-            <div *ngFor="let review of product?.reviews" class="review">
-                <div> Author: {{review.authorName}}</div>
-                <div>{{review.content}}</div>
-            </div>
+
+    <!-- Product Information Section -->
+    <div class="product-info">
+      <div class="product-header">
+        <div class="product-category">
+          <mat-chip color="primary" selected>{{product.category}}</mat-chip>
+        </div>
+        <h1 class="product-title">{{product.name}}</h1>
+        <div class="product-price">
+          <span class="price-amount">{{product.price}}</span>
+          <span class="price-currency">{{product.currency}}</span>
+        </div>
+      </div>
+
+      <div class="product-description">
+        <h3>Description</h3>
+        <p>{{product.description}}</p>
+      </div>
+
+      <div class="product-full-description" *ngIf="product.fullDescription">
+        <h3>Detailed Specifications</h3>
+        <div class="specs-content">
+          {{product.fullDescription}}
+        </div>
+      </div>
+
+      <div class="product-actions">
+        <button mat-raised-button color="primary" class="add-to-cart-btn" routerLink="/cart" [queryParams]="{productId: product.id}">
+          <mat-icon>add_shopping_cart</mat-icon>
+          Add to Cart
+        </button>
+        
+        <button mat-stroked-button color="primary" class="view-cart-btn" routerLink="/cart">
+          <mat-icon>shopping_cart</mat-icon>
+          View Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+  <div class="reviews-section">
+    <div class="reviews-header">
+      <h2 class="reviews-title">
+        <mat-icon>rate_review</mat-icon>
+        Customer Reviews
+      </h2>
+      <p class="reviews-subtitle" *ngIf="product?.reviews?.length">
+        {{product?.reviews?.length}} review{{product?.reviews?.length !== 1 ? 's' : ''}} from our customers
+      </p>
+    </div>
+
+    <!-- Existing Reviews -->
+    <div class="reviews-list" *ngIf="product?.reviews?.length">
+      <div *ngFor="let review of product?.reviews" class="review-card">
+        <div class="review-header">
+          <div class="review-author">
+            <mat-icon class="author-icon">person</mat-icon>
+            <span class="author-name">{{review.authorName}}</span>
+          </div>
+          <div class="review-rating">
+            <mat-icon *ngFor="let star of [1,2,3,4,5]" class="star-icon">star</mat-icon>
+          </div>
+        </div>
+        <div class="review-content">
+          <p>{{review.content}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Reviews Message -->
+    <div class="no-reviews" *ngIf="!product?.reviews?.length">
+      <mat-icon class="no-reviews-icon">rate_review</mat-icon>
+      <h3>No reviews yet</h3>
+      <p>Be the first to share your experience with this product!</p>
+    </div>
+
+    <!-- Add Review Form -->
+    <div class="add-review-section">
+      <h3 class="add-review-title">Write a Review</h3>
+      <form [formGroup]="reviewForm" (submit)="submit()" class="review-form">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              formControlName="authorName" 
+              placeholder="Enter your name"
+              class="modern-input"
+              [class.error]="authorName?.invalid && (authorName?.dirty || authorName?.touched)">
+            <mat-icon class="input-icon">person</mat-icon>
+          </div>
+          <div *ngIf="authorName?.invalid && (authorName?.dirty || authorName?.touched)" class="form-error">
+            <span *ngIf="authorName?.errors?.['required']">Name is required</span>
+            <span *ngIf="authorName?.errors?.['minlength']">Name must be at least 2 characters</span>
+            <span *ngIf="authorName?.errors?.['maxlength']">Name cannot exceed 60 characters</span>
+          </div>
         </div>
 
-        <form [formGroup]="reviewForm" (submit)="submit()" fxLayout="column">
-            <mat-form-field appearance="fill">
-                <mat-label>Author</mat-label>
-                <input matInput placeholder="Please write your name" formControlName="authorName">
-                <div *ngIf="authorName?.invalid && (authorName?.dirty || authorName?.touched)" class="errorMessage">
-                  <div *ngIf="authorName?.errors?.['required']">
-                    Required name.
-                  </div>
-                  <div *ngIf="authorName?.errors?.['minlength']">
-                    Name must have more than 2 digit
-                  </div>
-                </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Your opinion about product</mat-label>
-                <textarea matInput rows="10" placeholder="Twoja opinia" formControlName="content"></textarea>
-                <div *ngIf="content?.invalid && (content?.dirty || content?.touched)" class="errorMessage">
-                  <div *ngIf="content?.errors?.['required']">
-                    Required opinion.
-                  </div>
-                  <div *ngIf="content?.errors?.['minlength']">
-                    Opinion must have more than 4 digit
-                  </div>
-                </div>
-            </mat-form-field>
-            <div fxLayout="colum" fxFlexAlign="end" fxLayoutGap="10">
-                <button mat-flat-button color="primary" [disabled]="!reviewForm.valid">Save</button>
-            </div>
-        </form>
+        <div class="form-group">
+          <label class="form-label">Your Review</label>
+          <div class="input-wrapper">
+            <textarea 
+              formControlName="content" 
+              placeholder="Share your experience with this product..."
+              class="modern-textarea"
+              rows="6"
+              [class.error]="content?.invalid && (content?.dirty || content?.touched)"></textarea>
+            <mat-icon class="input-icon">rate_review</mat-icon>
+          </div>
+          <div *ngIf="content?.invalid && (content?.dirty || content?.touched)" class="form-error">
+            <span *ngIf="content?.errors?.['required']">Review content is required</span>
+            <span *ngIf="content?.errors?.['minlength']">Review must be at least 4 characters</span>
+            <span *ngIf="content?.errors?.['maxlength']">Review cannot exceed 600 characters</span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="modern-button primary" [disabled]="!reviewForm.valid">
+            <mat-icon>send</mat-icon>
+            Submit Review
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

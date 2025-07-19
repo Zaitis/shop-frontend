@@ -213,11 +213,16 @@
           <p>Get the latest deals, new product launches, and tech insights delivered to your inbox</p>
         </div>
         <div class="newsletter-form">
-          <mat-form-field appearance="outline" class="email-field">
-            <mat-label>Your email address</mat-label>
-            <input matInput type="email" placeholder="Enter your email">
-            <mat-icon matSuffix>email</mat-icon>
-          </mat-form-field>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <div class="input-wrapper">
+              <input 
+                type="email" 
+                placeholder="Enter your email address"
+                class="modern-input">
+              <mat-icon class="input-icon">email</mat-icon>
+            </div>
+          </div>
           <button mat-raised-button color="primary" class="subscribe-btn">
             <mat-icon>notifications</mat-icon>
             Subscribe

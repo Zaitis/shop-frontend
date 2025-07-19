@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { CartSummary } from '../common/model/cart/cartSummary';
 import { CartSummaryItem } from '../common/model/cart/cartSummaryItem';
 import { CartCommonService } from '../common/service/cart-common.service';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -23,16 +24,16 @@ export class CartComponent implements OnInit {
     private route: ActivatedRoute,
     private cartService: CartService,
     private cartCommonService: CartCommonService,
-    private cookieService:CookieService,
+    private cookieService: CookieService,
     private router: Router,
     private formBuilder: FormBuilder,
     private cartIconService: CartIconService,
     private location: Location
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     let id = Number(this.route.snapshot.queryParams['productId']);
-    if(id > 0) {
+    if (id > 0) {
       this.isProductAdded = true;
       this.addToCart(id);
     } else {
@@ -45,21 +46,21 @@ export class CartComponent implements OnInit {
     });
   }
 
-  getCart(){
+  getCart() {
     let cartId = Number(this.cookieService.get("cartId"));
-    if(cartId > 0){
+    if (cartId > 0) {
       this.cartCommonService.getCart(cartId)
-      .subscribe(summary => {
-        this.summary = summary;
-        this.patchFormItems();
-        this.cartIconService.cartChanged(summary.items.length);
-      });
+        .subscribe(summary => {
+          this.summary = summary;
+          this.patchFormItems();
+          this.cartIconService.cartChanged(summary.items.length);
+        });
     }
   }
 
-  addToCart(id: number){
+  addToCart(id: number) {
     let cartId = Number(this.cookieService.get("cartId"));
-    this.cartService.addToCart(cartId, {productId: id, quantity: 1})
+    this.cartService.addToCart(cartId, { productId: id, quantity: 1 })
       .subscribe(summary => {
         this.summary = summary;
         this.patchFormItems();
@@ -70,12 +71,14 @@ export class CartComponent implements OnInit {
       });
   }
 
-  patchFormItems(){
+  patchFormItems() {
     let formItems = <FormArray>this.formGroup.get("items");
+    formItems.clear(); // Clear existing items first
+    
     this.summary.items.forEach(item => {
       formItems.push(this.formBuilder.group({
         id: [item.id],
-        quantity: [item.quantity],
+        quantity: [item.quantity || 1], // Ensure minimum quantity of 1
         product: [item.product],
         lineValue: [item.lineValue]
       }));
@@ -86,12 +89,12 @@ export class CartComponent implements OnInit {
     return new Date(Date.now() + days * 24 * 60 * 60 * 1000);
   }
 
-  submit(){
+  submit() {
     let cartId = Number(this.cookieService.get("cartId"));
     this.cartService.updateCart(cartId, this.mapToRequestListDto())
       .subscribe(summary => {
-        this.summary = summary
-        this.formGroup.get("items")?.setValue(summary.items)
+        this.summary = summary;
+        this.patchFormItems(); // Re-patch to ensure form is in sync
       });
   }
 
@@ -99,7 +102,7 @@ export class CartComponent implements OnInit {
     let items: Array<CartSummaryItem> = this.formGroup.get("items")?.value;
     return items.map(item => ({
       productId: item.product.id,
-      quantity: item.quantity
+      quantity: Math.max(1, item.quantity || 1) // Ensure minimum quantity of 1
     }));
   }
 
@@ -111,8 +114,38 @@ export class CartComponent implements OnInit {
   get items() {
     return (<FormArray>this.formGroup.get("items")).controls;
   }
-  
-  back(){
+
+  increaseQuantity(index: number) {
+    const item = this.items[index];
+    const currentQuantity = item.get('quantity')?.value || 1;
+    const newQuantity = currentQuantity + 1;
+    item.get('quantity')?.setValue(newQuantity);
+    
+    // Update the line value if needed
+    const product = item.get('product')?.value;
+    if (product && product.price) {
+      const lineValue = (product.price * newQuantity).toFixed(2);
+      item.get('lineValue')?.setValue(lineValue);
+    }
+  }
+
+  decreaseQuantity(index: number) {
+    const item = this.items[index];
+    const currentQuantity = item.get('quantity')?.value || 1;
+    if (currentQuantity > 1) {
+      const newQuantity = currentQuantity - 1;
+      item.get('quantity')?.setValue(newQuantity);
+      
+      // Update the line value if needed
+      const product = item.get('product')?.value;
+      if (product && product.price) {
+        const lineValue = (product.price * newQuantity).toFixed(2);
+        item.get('lineValue')?.setValue(lineValue);
+      }
+    }
+  }
+
+  back() {
     this.location.historyGo(this.isProductAdded ? -2 : -1);
-  }  
+  }
 }

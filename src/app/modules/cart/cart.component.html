@@ -1,50 +1,103 @@
-<h1>Shopping Basket</h1>
+<div class="cart-container">
+  <div class="cart-header">
+    <h1 class="cart-title">
+      <mat-icon>shopping_cart</mat-icon>
+      Shopping Cart
+    </h1>
+    <p class="cart-subtitle" *ngIf="summary?.items?.length">
+      {{summary?.items?.length}} item{{summary?.items?.length !== 1 ? 's' : ''}} in your cart
+    </p>
+  </div>
 
-<form *ngIf="summary?.items?.length" [formGroup]="formGroup">
-<div>
-    <div fxLayout="row" fxLayoutAlign="space-between start" class="card-hrow">
-        <div class="cart-hcol-1">Image</div>
-        <div class="cart-hcol-2">Name</div>
-        <div class="cart-hcol-3">Quantity</div>
-        <div class="cart-hcol-4">Price</div>
-        <div class="cart-hcol-5">Remove</div>
-    </div>
-    <div formGroupName="items">
-        <div *ngFor="let item of items; let i = index">
-            <div [formGroupName]="i" fxLayout="row" fxLayoutAlign="space-between start" class="card-row">
-                <div class="cart-col-1">
-                    <a routerLink="{{'/products/' + item.value?.product?.slug}}">
-                        <img *ngIf="!item.value?.product?.image" src="/assets/image-placeholder.png" width="100">
-                        <img *ngIf="item.value?.product?.image" src="{{'/api/data/productImage/' + item.value?.product?.image}}" width="100">
-                    </a>
-                </div>
-                <div class="cart-col-2">{{item.value?.product?.name}}</div>
-                <div class="cart-col-3"><input formControlName="quantity" class="quantityInput"></div>
-                <div class="cart-col-4">{{item.value?.lineValue}}</div>
-                <div class="cart-col-5">
-                    <button mat-icon-button color="warn" (click)="deleteItem(item.value?.id)"><mat-icon>delete</mat-icon></button>
-                </div>
+  <!-- Cart Items -->
+  <div class="cart-content" *ngIf="summary?.items?.length">
+    <form [formGroup]="formGroup">
+      <div class="cart-items">
+        <div *ngFor="let item of items; let i = index" class="cart-item" [formGroupName]="i">
+          <div class="item-image">
+            <a routerLink="{{'/products/' + item.value?.product?.slug}}">
+              <img *ngIf="!item.value?.product?.image" src="/assets/image-placeholder.png" alt="Product">
+              <img *ngIf="item.value?.product?.image" src="{{'/api/data/productImage/' + item.value?.product?.image}}" alt="Product">
+            </a>
+          </div>
+          
+          <div class="item-details">
+            <h3 class="item-name">
+              <a routerLink="{{'/products/' + item.value?.product?.slug}}">
+                {{item.value?.product?.name}}
+              </a>
+            </h3>
+            <p class="item-category">{{item.value?.product?.category}}</p>
+            <div class="item-price">{{item.value?.lineValue}}</div>
+          </div>
+          
+          <div class="item-quantity">
+            <label class="quantity-label">Quantity</label>
+            <div class="quantity-controls">
+              <button type="button" class="quantity-btn minus-btn" (click)="decreaseQuantity(i)" [disabled]="item.value?.quantity <= 1">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <input type="number" formControlName="quantity" class="quantity-input" min="1" [value]="item.value?.quantity || 1">
+              <button type="button" class="quantity-btn plus-btn" (click)="increaseQuantity(i)">
+                <mat-icon>add</mat-icon>
+              </button>
             </div>
+          </div>
+          
+          <div class="item-total">
+            <span class="total-label">Total</span>
+            <span class="total-price">{{item.value?.lineValue}}</span>
+          </div>
+          
+          <div class="item-actions">
+            <button type="button" class="remove-btn" (click)="deleteItem(item.value?.id)" matTooltip="Remove item">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
         </div>
+      </div>
+      
+      <!-- Cart Summary -->
+      <div class="cart-summary">
+        <div class="summary-card">
+          <h3 class="summary-title">Order Summary</h3>
+          
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>{{summary?.summary?.grossValue}}</span>
+          </div>
+          
+          <div class="summary-row total-row">
+            <span>Total</span>
+            <span class="total-amount">{{summary?.summary?.grossValue}}</span>
+          </div>
+          
+          <div class="summary-actions">
+            <button mat-raised-button color="primary" class="update-btn" (click)="submit()">
+              <mat-icon>refresh</mat-icon>
+              Update Cart
+            </button>
+            
+            <button mat-raised-button color="accent" class="checkout-btn" routerLink="/order">
+              <mat-icon>shopping_cart_checkout</mat-icon>
+              Proceed to Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Empty Cart -->
+  <div class="empty-cart" *ngIf="!summary?.items?.length">
+    <div class="empty-content">
+      <mat-icon class="empty-icon">shopping_cart</mat-icon>
+      <h2>Your cart is empty</h2>
+      <p>Looks like you haven't added any items to your cart yet.</p>
+      <button mat-raised-button color="primary" routerLink="/products" class="continue-shopping-btn">
+        <mat-icon>shopping_bag</mat-icon>
+        Continue Shopping
+      </button>
     </div>
-    <div class="card-row" fxLayoutAlign="end start">
-        <button mat-flat-button color="primary" (click)="submit()">Update Basket</button>
-    </div>
-    <div fxLayoutAlign="end start">
-        <div class="summary"> Summary: </div>
-        <div class="summary"> <b>{{summary?.summary?.grossValue}}</b></div>
-    </div>
-    <div>
-        <button mat-flat-button color="warn" (click)="back()">Back to shop</button>
-    </div>
-    <div fxLayoutAlign="end start">
-        <button type="button" class="orderButton" mat-flat-button color="accent" routerLink="/order">Buy It</button>
-    </div>
-</div>
-</form>
-<div *ngIf="!summary?.items?.length">
-    <div style="padding-bottom:20px;">The basket is empty.</div>
-    <div>
-        <button mat-flat-button color="warn" (click)="back()">Back to shop</button>
-    </div>
+  </div>
 </div>
