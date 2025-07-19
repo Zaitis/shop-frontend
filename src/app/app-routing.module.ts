@@ -6,6 +6,7 @@ import { FullpageadminComponent } from './layouts/fullpageadmin/fullpageadmin.co
 import { AdminComponent } from './modules/admin/admin.component';
 import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/login/login.component';
+import { ForgotPasswordComponent } from './modules/login/forgot-password/forgot-password.component';
 import { ProductComponent } from './modules/product/product.component';
 import { AdminProductComponent } from 'src/app/modules/admin/admin-product/admin-product.component';
 import { AdminProductUpdateComponent } from './modules/admin/admin-product/admin-product-update/admin-product-update.component';
@@ -40,6 +41,8 @@ const routes: Routes = [
         {path: 'categories/:slug', component: CategoryComponent},
         {path: 'cart', component: CartComponent},
         {path: 'order', component: OrderComponent},
+        {path: 'login', component: LoginComponent},
+        {path: 'forgot-password', component: ForgotPasswordComponent},
         {path: 'profile', component: ProfileComponent},
         {path: 'privacy', component: PrivacyPolicyComponent},
         {path: 'terms', component: TermsOfServiceComponent},
@@ -48,7 +51,7 @@ const routes: Routes = [
   },
   {
     path:'', component: FullpageComponent, children: [
-        {path: 'login', component: LoginComponent}
+        // Login moved to default layout
          ]
   },
   {

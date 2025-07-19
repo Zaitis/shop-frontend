@@ -9,6 +9,8 @@ import { CategoryComponent } from 'src/app/modules/category/category.component';
 import { ProductDetailsComponent } from 'src/app/modules/product-details/product-details.component';
 import { CartComponent } from 'src/app/modules/cart/cart.component';
 import { OrderComponent } from 'src/app/modules/order/order.component';
+import { LoginComponent } from 'src/app/modules/login/login.component';
+import { ForgotPasswordComponent } from 'src/app/modules/login/forgot-password/forgot-password.component';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProfileComponent } from 'src/app/modules/profile/profile.component';
@@ -26,6 +28,8 @@ import { CookiePolicyComponent } from 'src/app/modules/legal/cookie-policy/cooki
     ProductDetailsComponent,
     CartComponent,
     OrderComponent,
+    LoginComponent,
+    ForgotPasswordComponent,
     ProfileComponent,
     ReplacePipe
   ],

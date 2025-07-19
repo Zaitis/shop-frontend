@@ -1,8 +1,8 @@
 <div class="login-container">
   <div class="login-card">
     <div class="login-header">
-      <mat-icon class="login-icon">store</mat-icon>
-      <h1>Welcome to Shop</h1>
+      <h1>Welcome to</h1>
+      <img src="/assets/shop-logo.png" alt="Shop Logo" class="logo-image" style="align-items: center; width:250px;">
       <p>Please login to your account or create a new one</p>
     </div>
     
@@ -27,6 +27,10 @@
                   [class.error]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
                 <mat-icon class="input-icon">email</mat-icon>
               </div>
+              <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="form-error">
+                <span *ngIf="loginForm.get('username')?.errors?.['required']">Email is required</span>
+                <span *ngIf="loginForm.get('username')?.errors?.['email']">Please enter a valid email</span>
+              </div>
             </div>
             
             <div class="form-group">
@@ -40,6 +44,9 @@
                   [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
                 <mat-icon class="input-icon">lock</mat-icon>
               </div>
+              <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="form-error">
+                <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+              </div>
             </div>
             
             <div class="form-actions">
@@ -47,7 +54,8 @@
                 <mat-icon>login</mat-icon>
                 Login
               </button>
-              <button type="button" class="modern-button secondary forgot-password">
+              <button type="button" class="modern-button secondary forgot-password" routerLink="/forgot-password">
+                <mat-icon>lock_reset</mat-icon>
                 Forgot Password?
               </button>
             </div>
@@ -75,6 +83,10 @@
                   [class.error]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
                 <mat-icon class="input-icon">email</mat-icon>
               </div>
+              <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="form-error">
+                <span *ngIf="registerForm.get('username')?.errors?.['required']">Email is required</span>
+                <span *ngIf="registerForm.get('username')?.errors?.['email']">Please enter a valid email</span>
+              </div>
             </div>
             
             <div class="form-group">
@@ -88,6 +100,10 @@
                   [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
                 <mat-icon class="input-icon">lock</mat-icon>
               </div>
+              <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="form-error">
+                <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
+                <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+              </div>
             </div>
             
             <div class="form-group">
@@ -100,6 +116,10 @@
                   class="modern-input"
                   [class.error]="registerForm.get('repeatPassword')?.invalid && registerForm.get('repeatPassword')?.touched">
                 <mat-icon class="input-icon">lock_outline</mat-icon>
+              </div>
+              <div *ngIf="registerForm.get('repeatPassword')?.invalid && registerForm.get('repeatPassword')?.touched" class="form-error">
+                <span *ngIf="registerForm.get('repeatPassword')?.errors?.['required']">Please confirm your password</span>
+                <span *ngIf="registerForm.get('repeatPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
               </div>
             </div>
             
